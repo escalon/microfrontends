@@ -1,0 +1,8 @@
+# Microfrontends Demo
+
+## Building
+    mvn install
+
+## Running
+
+    docker-compose -f docker/common/docker-compose.yml up
