@@ -19,6 +19,7 @@
 
     <modules>
         <module>aggregator</module>
+        <module>order-service</module>
     </modules>
     <build>
         <plugins>

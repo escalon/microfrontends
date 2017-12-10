@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 <body>
-<h1>Heading</h1>
+<h1>Mein Auto</h1>
 <p th:text="'Hello, ' + ${name} + '!'" />
 
 <form method="POST" data-pjax="" action="http://web-shop-shopping-cart.herokuapp.com/">
@@ -17,6 +17,9 @@
 </form>
 
 <div th:replace="http://web-shop-shopping-cart.herokuapp.com/shopping-cart-full"></div>
+
+<h1>Mein Boot</h1>
+
 <div th:replace="fragments/footer :: footer">hi</div>
 </body>
 </html>
