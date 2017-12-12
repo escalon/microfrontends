@@ -1,0 +1,30 @@
+<!-- <nav> -->
+<!-- <NavLink exact to="/">Cart</NavLink> -->
+<!-- <NavLink to="/status">Status</NavLink> -->
+<!-- </nav> -->
+
+<!--<Route exact path="/"><Home/></Route>-->
+<!--<Route path="/about"><About/></Route>-->
+<!--<Route path="/blog"><Blog/></Route>-->
+
+<!-- <Route exact path="/"> -->
+    <!-- <Cart :items/> -->
+<!-- </Route> -->
+<!-- <Route exact path="/status"> -->
+    <!-- <CartStatus :items/> -->
+<!-- </Route> -->
+{{each items as item}}
+<Product :item></Product>
+<AddToCart :item></AddToCart>
+{{/each}}
+
+<script>
+    import Product from './components/Product.html';
+    import AddToCart from './components/AddToCart.html';
+    export default {
+        components: {
+            Product,
+            AddToCart
+        }
+    };
+</script>
