@@ -35,6 +35,7 @@ function plugins() {
             hydratable: true,
             store: true
         }),
+        resolve(),
         buble(),
         // buble({transforms: {classes: false}})
     ]
