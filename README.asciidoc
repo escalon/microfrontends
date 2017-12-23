@@ -1,6 +1,155 @@
 # Microfrontends Demo
 
+## Overview
+Microfrontends are an approach to integrate functionality of microservices not on data, but on ui. Microfrontends are non-trivial user interfaces built by independent teams which can be combined to achieve an overall business value.
+
+### Aggregation
+Pages are aggregated from multiple sources and they contain several microfrontends. An aggregator can sit in front of a content management system where it retrieves a site navigation menu, footer etc., but a CMS can also play the role of the aggregator itself.
+
+Aggregation can happen in the backend or on the client. Aggregation in the backend means that the markup of html pages is assembled during delivery. Aggregation in the client means that the browser transcludes markup much like it transcludes images in html pages: The browser fetches parts of the page asynchronously and shows them when they are ready.
+
+There are various technologies and tools which can be used for this kind of aggregation.
+
+You can use a template engine that is able to retrieve html and place it into the page (for Java jsp or the more modern Thymeleaf), or you can set up https://www.nginx.com/blog/benefits-of-microcaching-nginx/[microcaching (TODO)] or even edge side inclusion (http://www.globaldots.com/edge-side-includes-esi-complete-overview/[ESI]) to assemble the html page which will be delivered to the browser.
+
+TODO: Also see http://nginx.org/en/docs/http/ngx_http_ssi_module.html.
+
+For declarative client-side inclusion you can use a web component like https://github.com/gustafnk/h-include[h-include.js] by https://github.com/gustafnk/[@gustafnk] or the pre-web-component https://github.com/mnot/hinclude[hinclude] by https://github.com/mnot/[@mnot].
+
+The aggregator service in this project uses a template-engine (Thymeleaf) to aggregate the backend part of the page, and it also demonstrates client-side aggregation using https://github.com/gustafnk/h-include[h-include.js].
+
+### No-framework Javascript
+"Disappearing" frameworks like Svelte.js or Stencil.js allow to have no framework library in the page, instead relying on standard Javascript (with polyfills for older browsers).
+
+This is a major win for microfrontends because several apps by several teams, written in several disappearing frameworks, can coexist on the page without risking framework version conflicts.
+
+No-framework microfrontends can both be added *alongside* a classic framework application which dominates the page or they can be used *inside* a larger application that may or may not be written with a disappearing framework.
+
+### Server Side Rendering
+While it is possible to deliver an SPA by just including some bootstrapping element on the page and letting Javascript handle the markup, Server Side Rendering (SSR) is preferable because the initial page is complete from the start and it is not necessary to wait for Javascript to fill the DOM.
+
+To make this work in svelte.js, you need to register the svelte compiler in the server application. It will compile any imported component so that it gets a `render(data)` method which is used to render the component with the given data; then use the result to build the server response.
+
+Next, tell the component in the browser that it should *hydrate* the pre-rendered markup, i.e. instead of creating the markup in the DOM from scratch it should adopt the markup it encounters.
+
+Using Svelte Store is possible with SSR. Enable store using the SSR option `store: true` when registering and pass the store to the `render()` method. The `html` attribute of the resulting object contains the markup as string.
+
+.server.js
+[source, javascript]
+----
+require('svelte/ssr/register')({
+    store: true
+}); // enable store on svelte compiler
+...
+const store = new Store({items: []});
+server.get('/cart/', function(req, res) {
+    res.write(`
+    <!DOCTYPE html>
+    <div id="cart">${app.render({}, {store}).html}</div>
+    <script src="/cart/bundle.js"></script>
+  `);
+    res.end();
+});
+----
+That allows you to render components which make use of Svelte store in the browser.
+
+
+### Exporting Components
+In order to export a component, add a `name` property to the rollup configuration which becomes the namespace for all exported components:
+
+.rollup.config.js
+[source, javascript]
+----
+export default {
+    input: 'main.js',
+    output: {
+        file: pkg.main,
+        format: 'iife',
+        name: 'productcomponents',
+        sourcemap: true
+    }
+}
+----
+
+To make the component available, add an `export default` statement to the file you have defined as `input` in _rollup.config.js_:
+
+.main.js
+[source, javascript]
+----
+import Product from './components/Product.html';
+
+...
+
+export default {
+    Product
+};
+
+----
+
+### Svelte components as custom-elements
+Add a `tag` property to each component you want to use as custom-element and assign a kebab-case tag name with at least one hyphen in it.
+
+.components/Product.html
+[source, html]
+----
+<script>
+    export default {
+        tag: 'product-card'
+    };
+</script>
+----
+Since custom elements v1 must be real class files, they cannot be compiled to ES5. That can be achieved by telling buble not to transform classes. Also tell the svelte compiler to create custom components using the `customElement` option.
+
+.rollup.config.js
+[source, javascript]
+----
+  plugins: [
+    svelte({
+      customElement: true
+    }),
+    buble({transforms: {classes: false}})
+----
+For more customElement options see the https://github.com/sveltejs/svelte[documentation of the svelte compiler].
+
+
+.rollup.config.js
+[source, javascript]
+----
+  plugins: [
+    svelte({
+      customElement: true
+    }),
+----
+
+
+## URLs
+
+### Zuul Proxy
+Necessary to deliver an app and its static resources from a common URL.
+http://localhost:8888/app/cart/ +
+http://localhost:8888/app/product/
+
+### Aggregator
+.src/main/templates/index.html
+[source, html]
+----
+<div th:replace="http://localhost:8888/app/cart"></div>
+<div th:replace="http://localhost:8888/app/product"></div>
+----
 ## Building
+
+### Javascript
+
+For local development you may want to create a link to the _cartcomponents_ module. The _cart_ app depends on _cartcomponents_.
+[source, bash]
+----
+$ cd cartcomponents
+$ npm link
+$ cd ../cart
+$ npm link cartcomponents
+----
+
+### Java
     mvn install
 
 ## Running

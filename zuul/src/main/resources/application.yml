@@ -1,0 +1,19 @@
+logging:
+  level:
+    org.springframework: INFO
+    com.netflix: DEBUG
+server:
+  port: 8888
+zuul:
+  include-debug-header: true
+  # prefix: /app
+  routes:
+    cart:
+      path: /cart/**
+      url: http://localhost:3005/cart
+    product:
+      path: /product/**
+      url: http://localhost:3006/product
+    index:
+      path: /**
+      url: http://localhost:8080/

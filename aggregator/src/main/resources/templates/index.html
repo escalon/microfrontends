@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Microfrontends</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet"/>
+    <link rel="stylesheet" href="comet.min.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <style>
+        body {
+            margin: 36px
+        }
+    </style>
+
+</head>
+<body>
+
+<div id="cart">
+    <div th:replace="http://localhost:8888/cart"></div>
+    <div th:replace="http://localhost:8888/product"></div>
+    <button onclick="refresh()">Refresh</button>
+</div>
+
+<div th:replace="fragments/footer :: footer">hi</div>
+</body>
+<script>
+    function refresh() {
+        var event = new CustomEvent('refresh', {bubbles: true, detail: 42});
+        var elem = document.getElementById('cart');
+        elem.dispatchEvent(event);
+    }
+
+    var receiver = document.getElementById('cart');
+    receiver.addEventListener('refresh', function (event) {
+        alert('shots fired');
+    });
+</script>
+</html>

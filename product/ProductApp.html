@@ -1,0 +1,23 @@
+{{#each products as product}}
+<Product :product></Product>
+<AddToCart :product></AddToCart>
+{{/each}}
+
+<script>
+    import Product from './components/Product.html';
+    import AddToCart from 'cartcomponents/components/AddToCart.html';
+    import store from 'cartcomponents/store.js'
+
+    export default {
+        components: {
+            Product,
+            AddToCart
+        },
+        data() {
+            return {
+                products: []
+            }
+        },
+        store: () => store
+    };
+</script>

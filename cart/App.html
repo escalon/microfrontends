@@ -1,0 +1,33 @@
+<!--<nav>-->
+    <!--<NavLink exact to="/">Cart</NavLink>-->
+    <!--<NavLink to="/cart/status">Status</NavLink>-->
+<!--</nav>-->
+
+<Route exact path="/cart/">
+    <Cart items="{{$items}}"/>
+</Route>
+<Route exact path="/cart/status">
+    <CartStatus items="{{$items}}"/>
+</Route>
+
+<Cart items="{{$items}}"/>
+<CartStatus items="{{$items}}"/>
+
+<script>
+    // import NavLink from 'svelte-routing/NavLink.html';
+    import Route from 'svelte-routing/Route.html';
+    import Cart from 'cartcomponents/components/Cart.html';
+    import CartStatus from 'cartcomponents/components/CartStatus.html';
+    import store from 'cartcomponents/store.js'
+
+
+    export default {
+        components: {
+            NavLink,
+            Route,
+            CartStatus,
+            Cart
+        },
+        store: () => store
+    };
+</script>

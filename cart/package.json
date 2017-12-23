@@ -1,26 +1,25 @@
 {
-  "main": "dist/product/bundle.js",
-  "module": "dist/bundle.esm.js",
+  "main": "dist/cart/bundle.js",
   "scripts": {
     "watch": "rollup -c --watch",
     "build": "rollup -c",
     "start": "node -r @std/esm server.js"
   },
   "dependencies": {
-    "@std/esm": "^0.17.3",
-    "document-register-element": "^1.7.0",
+    "@std/esm": "^0.17.1",
     "express": "^4.16.2",
+    "history": "^4.7.2",
     "path-to-regexp": "^2.1.0",
-    "svelte": "^1.43.1"
-  },
-  "devDependencies": {
-    "rollup": "^0.52.0",
+    "rollup": "^0.52.3",
     "rollup-plugin-buble": "^0.18.0",
     "rollup-plugin-commonjs": "^8.2.6",
     "rollup-plugin-livereload": "^0.6.0",
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-replace": "^2.0.0",
-    "rollup-plugin-svelte": "^3.1.0"
+    "rollup-plugin-svelte": "^3.1.0",
+    "svelte": "^1.43.1",
+    "svelte-extras": "^1.6.0",
+    "svelte-routing": "^0.0.1"
   },
   "@std/esm": {
     "esm": "js",

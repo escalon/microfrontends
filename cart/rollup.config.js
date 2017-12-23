@@ -12,7 +12,8 @@ export default [
         input: 'main.js',
         output: {
             file: pkg.main,
-            format: 'iife'
+            format: 'iife',
+            sourcemap: true
         },
         plugins: [
             svelte({
@@ -27,11 +28,13 @@ export default [
             }),
             commonjs(),
             replace({'process.env.NODE_ENV': '"production"'}),
-            buble()
+            buble(),
+            // buble({transforms: {classes: false}}),
+            // livereload({watch: 'dist', port: 35731})
         ]
     },
     {
-        input: 'ProductApp.html',
+        input: 'App.html',
         output: {
             file: 'dist/ssr/bundle.js',
             format: 'cjs',
@@ -42,6 +45,7 @@ export default [
                 hydratable: true,
                 store: true,
                 generate: 'ssr'
+                //customElement: true
             }),
             resolve({
                 jsnext: true,
@@ -50,7 +54,8 @@ export default [
             }),
             commonjs(),
             replace({'process.env.NODE_ENV': '"production"'}),
-            buble()
+            buble(),
+            // buble({transforms: {classes: false}})
         ]
     }
 ];

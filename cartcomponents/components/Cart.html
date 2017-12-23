@@ -1,0 +1,32 @@
+<div>You have {{itemCount}} item{{itemCount == 1? '': 's'}} in your shopping cart.</div>
+<table>
+    {{#each items as item, index}}
+    <tr>
+        <td><a target='_blank'>{{item}}</a></td>
+        <td>
+            <button on:click="removeItem(index)">Delete</button>
+        </td>
+    </tr>
+    {{/each}}
+</table>
+
+<script>
+    export default {
+        computed: {
+            itemCount: items => items.length
+        },
+        methods: {
+            removeItem(index) {
+                const cartItems = this.store.get('items');
+                cartItems.splice(index, 1);
+                this.store.set({'items': cartItems});
+            }
+        },
+        data() {
+            return {
+                newItem: '',
+                items: []
+            }
+        }
+    }
+</script>

@@ -1,6 +1,10 @@
 version: '2.3'
 services:
   aggregator:
-      image: escalon/microfrontends-aggregator:0.0.1-SNAPSHOT
-      ports:
-        - "8080:8080"
+    image: escalon/microfrontends-aggregator:0.0.1-SNAPSHOT
+    ports:
+      - "8080:8080"
+  orderservice:
+    image: escalon/microfrontends-order-service:0.0.1-SNAPSHOT
+    ports:
+      - "8088:8088"

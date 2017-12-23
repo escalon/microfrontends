@@ -1,0 +1,13 @@
+<div>{{itemCount}} item{{itemCount == 1? '': 's'}}</div>
+<script>
+    export default {
+        computed: {
+            itemCount: items => items.length
+        },
+        data()  {
+            return {
+                items: []
+            }
+        }
+    }
+</script>

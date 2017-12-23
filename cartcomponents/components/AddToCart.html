@@ -1,0 +1,23 @@
+<button on:click="add(product)">Add</button> ({{itemCount}})
+
+<script>
+    import store from '../store.js'
+    export default {
+        methods: {
+            add(product) {
+                const svelteStoreItems = this.store.get('items');
+                svelteStoreItems.push(product);
+                this.store.set({'items': svelteStoreItems});
+            }
+        },
+        computed: {
+          itemCount: $items => $items.length
+        },
+        data() {
+            return {
+                product: ''
+            }
+        },
+        store: () => store
+    }
+</script>
