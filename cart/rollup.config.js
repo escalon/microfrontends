@@ -21,11 +21,7 @@ export default [
                 store: true
                 //customElement: true
             }),
-            resolve({
-                jsnext: true,
-                main: true,
-                browser: true
-            }),
+            resolve(),
             commonjs(),
             replace({'process.env.NODE_ENV': '"production"'}),
             buble(),
@@ -38,8 +34,9 @@ export default [
         output: {
             file: 'dist/ssr/bundle.js',
             format: 'cjs',
-            sourcemap: true
+            sourcemap: true,
         },
+        external: ['svelte/store.js'],
         plugins: [
             svelte({
                 hydratable: true,
@@ -47,11 +44,12 @@ export default [
                 generate: 'ssr'
                 //customElement: true
             }),
-            resolve({
-                jsnext: true,
-                main: true,
-                browser: true
-            }),
+            resolve(),
+            // resolve({
+            //     jsnext: true,
+            //     main: true,
+            //     browser: true
+            // }),
             commonjs(),
             replace({'process.env.NODE_ENV': '"production"'}),
             buble(),

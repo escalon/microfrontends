@@ -13,8 +13,9 @@ export default [
             file: pkg.main,
             format: 'cjs',
             name: 'cartcomponents',
-            sourcemap: true
+            sourcemap: true,
         },
+        external: ['svelte/store.js'],
         plugins: plugins()
     },
     {
@@ -23,8 +24,9 @@ export default [
             file: pkg.module,
             format: 'es',
             name: 'cartcomponents',
-            sourcemap: true
+            sourcemap: true,
         },
+        external: ['svelte/store.js'],
         plugins: plugins()
     }
 ];
@@ -35,7 +37,6 @@ function plugins() {
             hydratable: true,
             store: true
         }),
-        resolve(),
         buble(),
         // buble({transforms: {classes: false}})
     ]
