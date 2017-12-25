@@ -1,23 +1,25 @@
 <!--<nav>-->
-    <!--<NavLink exact to="/">Cart</NavLink>-->
-    <!--<NavLink to="/cart/status">Status</NavLink>-->
+<!--<NavLink exact to="/">Cart</NavLink>-->
+<!--<NavLink to="/cart/status">Status</NavLink>-->
 <!--</nav>-->
 
+<!-- see https://github.com/EmilTholin/svelte-routing/issues/2 -->
 <!--<Route exact path="/cart/">-->
-    <!--<Cart items="{{$items}}"/>-->
+<!--<Cart items="{{$items}}"/>-->
 <!--</Route>-->
 <!--<Route exact path="/cart/status">-->
-    <!--<CartStatus items="{{$items}}"/>-->
+<!--<CartStatus items="{{$items}}"/>-->
 <!--</Route>-->
 
+<CartStatus on:cartToggled="toggleCart()" items="{{$items}}"/>
+{{#if !iconized}}
 <Cart items="{{$items}}"/>
-<CartStatus items="{{$items}}"/>
-
+{{/if}}
 <script>
     // import NavLink from 'svelte-routing/NavLink.html';
     // import Route from 'svelte-routing/Route.html';
-    import Cart from 'cartcomponents/components/Cart.html';
-    import CartStatus from 'cartcomponents/components/CartStatus.html';
+    import Cart from 'cartcomponents/Cart.html';
+    import CartStatus from 'cartcomponents/CartStatus.html';
     import store from 'cartcomponents/store.js'
 
 
@@ -27,6 +29,16 @@
             Route,
             CartStatus,
             Cart
+        },
+        data() {
+            return {
+                iconized: true
+            }
+        },
+        methods: {
+            toggleCart() {
+                this.set({iconized: !this.get('iconized')});
+            }
         },
         store: () => store
     };

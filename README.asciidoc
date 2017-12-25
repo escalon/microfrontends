@@ -1,4 +1,5 @@
 # Microfrontends Demo
+:toc:
 
 ## Overview
 Microfrontends are an approach to integrate functionality of microservices not on data, but on ui. Microfrontends are non-trivial user interfaces built by independent teams which can be combined to achieve an overall business value.
@@ -150,8 +151,22 @@ $ npm link cartcomponents
 ----
 
 ### Java
+
+Building involves packaging and creating docker images. Make sure Docker is running before you
+
     mvn install
 
 ## Running
 
-    docker-compose -f docker/common/docker-compose.yml up
+### Locally
+
+Run the Java artifacts with dev Spring profile.
+
+### Docker
+
+Docker for Windows requires Windows 10 Professional or Enterprise 64 bit with enabled Hyper-V.
+
+IMPORTANT: On Windows 10 it is necessary to run docker-compose in a *standalone terminal* window, not in an embedded IDE terminal (notably VSCode or Webstorm), where you will get an `IOError: [Errno 0]`. See https://github.com/docker/compose/issues/5019
+
+    $ docker-compose -f docker/common/docker-compose.yml up
+    $ docker-compose -f docker/common/docker-compose.yml down

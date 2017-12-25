@@ -1,0 +1,22 @@
+# Module cart
+
+## Building
+The cart application is provided in two bundles in _dist_:
+
+* cjs for SSR on Node
+* iife for the browser
+
+### Bundles
+    $ npm run build
+
+### Docker image
+    $ docker build -t escalon/microfrontends-cart .
+
+
+## Running
+
+### App
+    $ npm start
+
+### Docker image
+    $ docker run -p 3005:3005 -d escalon/microfrontends-cart

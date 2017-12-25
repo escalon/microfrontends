@@ -2,7 +2,7 @@
   "name": "cartcomponents",
   "version": "0.0.1",
   "main": "dist/bundle.js",
-  "module": "dist/bundle.esm.js",
+  "svelte.root": "components",
   "scripts": {
     "watch": "rollup -c --watch",
     "build": "rollup -c"

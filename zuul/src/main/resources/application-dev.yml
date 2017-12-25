@@ -1,7 +1,7 @@
 logging:
   level:
     org.springframework: INFO
-    com.netflix: INFO
+    com.netflix: DEBUG
 server:
   port: 8888
 zuul:
@@ -10,10 +10,10 @@ zuul:
   routes:
     cart:
       path: /cart/**
-      url: http://cart:3005/cart
+      url: http://localhost:3005/cart
     product:
       path: /product/**
-      url: http://product:3006/product
+      url: http://localhost:3006/product
     index:
       path: /**
-      url: http://aggregator:8080/
+      url: http://localhost:8080/

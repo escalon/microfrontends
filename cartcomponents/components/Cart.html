@@ -1,15 +1,18 @@
-<div>You have {{itemCount}} item{{itemCount == 1? '': 's'}} in your shopping cart.</div>
-<table>
-    {{#each items as item, index}}
-    <tr>
-        <td><a target='_blank'>{{item}}</a></td>
-        <td>
-            <button on:click="removeItem(index)">Delete</button>
-        </td>
-    </tr>
-    {{/each}}
-</table>
-
+<div class="cart">
+    <div>You have {{itemCount}} item{{itemCount == 1? '': 's'}} in your shopping cart.</div>
+    <table>
+        <col width="50%">
+        <col width="25%">
+        {{#each items as item, index}}
+        <tr>
+            <td><a target='_blank'>{{item}}</a></td>
+            <td>
+                <button on:click="removeItem(index)">Delete</button>
+            </td>
+        </tr>
+        {{/each}}
+    </table>
+</div>
 <script>
     export default {
         computed: {

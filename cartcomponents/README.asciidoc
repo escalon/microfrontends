@@ -1,0 +1,11 @@
+# Module cartcomponents
+
+
+The cartcomponts are provided in two different forms:
+
+* cjs for SSR with Node: pkg.main
+* uncompiled components: pkg['svelte.root'], see https://github.com/rollup/rollup-plugin-svelte#pkgsvelte-and-pkgsvelteroot[pkg.svelte]
+
+## Building
+
+    $ npm run build

@@ -8,31 +8,129 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <style>
         body {
-            margin: 36px
+            max-width: 75em;
+            margin: 0 auto;
+        }
+
+        nav {
+            overflow: hidden;
+            background-color: #626979;
+        }
+
+        nav ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        nav li {
+            display: inline;
+            color: #f2f2f2;
+        }
+
+        nav li a {
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            font-size: 2rem;
+            border-bottom: none;
+        }
+
+        nav a:hover {
+            background-color: #DDD;
+        }
+
+        nav a.active {
+            background-color: #19E2B5;
+            color: #333;
+        }
+
+        nav .burger {
+            display: none;
+        }
+
+        /*@media screen and (max-width: 600px) {*/
+        /*nav li {*/
+        /*display: block;*/
+        /*width: 50%;*/
+        /*}*/
+        /*}*/
+
+        /*@media only screen and (max-width: 30em) {*/
+        /*nav li {*/
+        /*width: 100%;*/
+        /*}*/
+        /*}*/
+
+        @media screen and (max-width: 600px) {
+            nav li:not(:first-child) {
+                display: none;
+            }
+
+            nav li.burger {
+                float: right;
+                display: block;
+
+            }
+        }
+
+        @media screen and (max-width: 600px) {
+            nav.responsive {
+                position: relative;
+            }
+
+            nav.responsive .burger {
+                position: absolute;
+                right: 0;
+                top: 0;
+            }
+
+            nav.responsive li {
+                display: block;
+            }
+
+            nav.responsive a {
+                float: none;
+                text-align: left;
+            }
+
         }
     </style>
 
 </head>
 <body>
 
-<div id="cart">
-    <div th:replace="http://localhost:8888/cart"></div>
-    <div th:replace="http://localhost:8888/product"></div>
-    <button onclick="refresh()">Refresh</button>
+<nav class="topnav" id="myTopnav">
+    <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#" class="active">Cheese</a></li>
+        <li><a href="#">Bakery</a></li>
+        <li><a href="#">Candy</a></li>
+        <li><a href="#">Meat</a></li>
+        <li><a href="#">Dairy</a></li>
+        <li><a href="#">Fish</a></li>
+        <li class="burger"><a href="javascript:void(0);" onclick="showDropdown()">&#9776;</a></li>
+    </ul>
+</nav>
+<div class="cart">
+    <div th:replace="${@environment.getProperty('cartservice.url')}"></div>
+</div>
+
+<div>
+    <div th:replace="${@environment.getProperty('productservice.url')}"></div>
 </div>
 
 <div th:replace="fragments/footer :: footer">hi</div>
 </body>
 <script>
-    function refresh() {
-        var event = new CustomEvent('refresh', {bubbles: true, detail: 42});
-        var elem = document.getElementById('cart');
-        elem.dispatchEvent(event);
+    function showDropdown() {
+        var x = document.getElementById("myTopnav");
+        if (x.className === "topnav") {
+            x.className += " responsive";
+        } else {
+            x.className = "topnav";
+        }
     }
-
-    var receiver = document.getElementById('cart');
-    receiver.addEventListener('refresh', function (event) {
-        alert('shots fired');
-    });
 </script>
 </html>

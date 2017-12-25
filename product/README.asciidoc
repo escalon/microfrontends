@@ -1,0 +1,22 @@
+# Module product
+
+## Building
+The product application is provided in two bundles in _dist_:
+
+* cjs for SSR on Node
+* iife for the browser
+
+### Bundles
+    $ npm run build
+
+### Docker image
+    $ docker build -t escalon/microfrontends-product .
+
+
+## Running
+
+### App
+    $ npm start
+
+### Docker image
+    $ docker run -p 3006:3006 -d escalon/microfrontends-product
