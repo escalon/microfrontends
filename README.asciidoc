@@ -1,10 +1,11 @@
-# Microfrontends Demo
+= Microfrontends Demo
 :toc:
+:icons: font
 
-## Overview
+== Overview
 Microfrontends are an approach to integrate functionality of microservices not on data, but on ui. Microfrontends are non-trivial user interfaces built by independent teams which can be combined to achieve an overall business value.
 
-### Aggregation
+=== Aggregation
 Pages are aggregated from multiple sources and they contain several microfrontends. An aggregator can sit in front of a content management system where it retrieves a site navigation menu, footer etc., but a CMS can also play the role of the aggregator itself.
 
 Aggregation can happen in the backend or on the client. Aggregation in the backend means that the markup of html pages is assembled during delivery. Aggregation in the client means that the browser transcludes markup much like it transcludes images in html pages: The browser fetches parts of the page asynchronously and shows them when they are ready.
@@ -19,14 +20,14 @@ For declarative client-side inclusion you can use a web component like https://g
 
 The aggregator service in this project uses a template-engine (Thymeleaf) to aggregate the backend part of the page, and it also demonstrates client-side aggregation using https://github.com/gustafnk/h-include[h-include.js].
 
-### No-framework Javascript
+=== No-framework Javascript
 "Disappearing" frameworks like Svelte.js or Stencil.js allow to have no framework library in the page, instead relying on standard Javascript (with polyfills for older browsers).
 
 This is a major win for microfrontends because several apps by several teams, written in several disappearing frameworks, can coexist on the page without risking framework version conflicts.
 
 No-framework microfrontends can both be added *alongside* a classic framework application which dominates the page or they can be used *inside* a larger application that may or may not be written with a disappearing framework.
 
-### Server Side Rendering
+=== Server Side Rendering
 While it is possible to deliver an SPA by just including some bootstrapping element on the page and letting Javascript handle the markup, Server Side Rendering (SSR) is preferable because the initial page is complete from the start and it is not necessary to wait for Javascript to fill the DOM.
 
 To make this work in svelte.js, you need to register the svelte compiler in the server application. It will compile any imported component so that it gets a `render(data)` method which is used to render the component with the given data; then use the result to build the server response.
@@ -55,7 +56,7 @@ server.get('/cart/', function(req, res) {
 That allows you to render components which make use of Svelte store in the browser.
 
 
-### Exporting Components
+=== Exporting Components
 In order to export a component, add a `name` property to the rollup configuration which becomes the namespace for all exported components:
 
 .rollup.config.js
@@ -87,7 +88,83 @@ export default {
 
 ----
 
-### Svelte components as custom-elements
+To allow Svelte applications to import the component in uncompiled form so that they can be built with the compiler version matching that application, either add a `svelte` property for a single exported component to _package.json_:
+
+.package.json
+[source, javascript]
+----
+{
+  "name": "singlecomponent", // <1>
+  "version": "0.0.1",
+  "svelte": "src/MyComponent.html"  // <2>
+}
+----
+<1> name of the package for imports
+<2> _MyComponent.html_ in the _/src_ folder becomes importable as `import MyComponent from 'singlecomponent'`
+
+or a 'svelte.root' property for multiple exported components:
+
+.package.json
+[source, javascript]
+----
+{
+  "name": "cartcomponents", // <1>
+  "version": "0.0.1",
+  "svelte.root": "components"  // <2>
+}
+----
+<1> name of the package for imports
+<2> _Cart.html_ in the _/components_ folder becomes importable as `import Cart from 'cartcomponents/Cart.html'`, likewise _CartStatus.html_ and _AddToCart.html_ from the same folder.
+
+See https://github.com/rollup/rollup-plugin-svelte#pkgsvelte-and-pkgsvelteroot[pkg.svelte] for more details.
+
+=== Using Svelte Component in the Browser
+
+When building a Svelte app that uses an external Svelte component, you have to decide whether you want to **bundle the component** with your app or **pick up** the component from the browser page at runtime.
+
+If you bundle the external component, it will become part of your Svelte application package. If you need a new version of the external component, you will have to update the component's version in your application package and build a new version of your application.
+
+If you pick up the external component from the page, the external component can be updated independently of your application, although it appears inside your application.
+
+==== As Bundled Dependency
+
+*Bundling* an external component is simple: add the package to _package.json_ so that it will be imported from _node_modules_, make sure the build finds the component there (e.g. by adding the `rollup-plugin-resolve` plugin to your _rollup.config.js_) and write an import statement in your component as usual that references the component in the external package.
+
+    import ExternalComponent from 'othercomponent/ExternalComponent.html'
+
+==== As External Dependency
+
+*Picking up* the component from the browser page requires that you add a `<script src="othercomponent/bundle.js" />` tag to the page. The `othercomponent` package must of course export the desired components in a distribution suitable for the browser as described in <<exporting-components>>. When the `othercomponent/bundle.js` script is executed, it will add the exported components to the page in the namespace of the othercomponent bundle.
+
+Your application's bundling configuration must be told that it should not try to resolve the component from _node_modules_, rather it should treat it as external dependency and look for it in the global context.
+
+.rollup.config.js
+[source, javascript]
+----
+{
+    input: 'main.js',
+    output: {
+        file: pkg.browser,
+        format: 'iife',
+        sourcemap: true
+    },
+    external: ['hostingactions/EmailAction.html'], // <1>
+    globals: {
+        'hostingactions/EmailAction.html' : 'hostingactions.EmailAction' // <2>
+    }
+}
+
+----
+<1> Tells rollup that the component imported as `hostingactions/EmailAction.html` is a runtime dependency
+<2> Tells rollup the identifier it should use to inject the dependency from the browser page, must match the name under which the component is exported from the component module.
+
+=== Using Svelte Component in SSR
+
+Requires a commonjs bundle of the application.
+
+TODO: verify how external and bundled components are pulled in
+
+=== Svelte Components as Custom Elements
 Add a `tag` property to each component you want to use as custom-element and assign a kebab-case tag name with at least one hyphen in it.
 
 .components/Product.html
@@ -99,7 +176,7 @@ Add a `tag` property to each component you want to use as custom-element and ass
     };
 </script>
 ----
-Since custom elements v1 must be real class files, they cannot be compiled to ES5. That can be achieved by telling buble not to transform classes. Also tell the svelte compiler to create custom components using the `customElement` option.
+Since custom elements v1 must be real class files, they cannot be compiled to ES5. That can be achieved by telling buble not to transform classes. Also tell the svelte compiler to create custom components using the `customElement` option:
 
 .rollup.config.js
 [source, javascript]
@@ -123,46 +200,60 @@ For more customElement options see the https://github.com/sveltejs/svelte[docume
 ----
 
 
-## URLs
+== URLs
 
-### Zuul Proxy
+=== Zuul Proxy
 Necessary to deliver an app and its static resources from a common URL.
 http://localhost:8888/app/cart/ +
 http://localhost:8888/app/product/
 
-### Aggregator
+=== Aggregator
 .src/main/templates/index.html
 [source, html]
 ----
 <div th:replace="http://localhost:8888/app/cart"></div>
 <div th:replace="http://localhost:8888/app/product"></div>
 ----
-## Building
+== Building
 
-### Javascript
+=== Javascript
 
-For local development you may want to create a link to the _cartcomponents_ module. The _cart_ app depends on _cartcomponents_.
+For local development and testing you need to create npm links to the _cartcomponents_ and _hostingactions_ module after `npm install`.
+
+TIP: In a real-life scenario you would keep those modules in a private or public NPM registry. In that case `npm link` is not necessary unless you develop several modules simultaneously.
+
+The _cart_ app depends on _cartcomponents_, the product app depends on _cartcomponents_ and _hostingactions_.
+
+
 [source, bash]
 ----
+# make packages linkable
 $ cd cartcomponents
 $ npm link
+$ cd ../hostingactions
+$ npm link
+
+# link in packages
 $ cd ../cart
 $ npm link cartcomponents
+$ cd ../product
+$ npm link cartcomponents
+$ npm link hostingactions
 ----
 
-### Java
+=== Java
 
-Building involves packaging and creating docker images. Make sure Docker is running before you
+Building involves packaging and creating docker images. Make sure Docker is running before you execute Maven:
 
     mvn install
 
-## Running
+== Running
 
-### Locally
+=== Locally
 
 Run the Java artifacts with dev Spring profile.
 
-### Docker
+=== Docker
 
 Docker for Windows requires Windows 10 Professional or Enterprise 64 bit with enabled Hyper-V.
 

@@ -5,17 +5,16 @@ const server = express();
 
 server.use(express.static(path.join(__dirname, 'dist')));
 
-server.get('/product/', function (req, res) {
+server.get('/hostingactions/', function (req, res) {
 
     res.write(`
     <!DOCTYPE html>
-    <div id="product">${app.render()}</div> 
+    <div id="hostingactions">${app.render()}</div> 
     <script src="/hostingactions/bundle.js"></script>
-    <script src="/product/bundle.js"></script>
   `);
 
     res.end();
 });
 
-const port = 3006;
+const port = 3007;
 server.listen(port, () => console.log(`Listening on port ${port}`));

@@ -30,7 +30,7 @@ export default [
         ]
     },
     {
-        input: 'App.html',
+        input: 'CartApp.html',
         output: {
             file: 'dist/ssr/bundle.js',
             format: 'cjs',

@@ -1,0 +1,50 @@
+<div class="hostingActions">
+{{#if status === 'idle'}}
+<button class="button button--clear" on:click="set({status: 'accountList'})">Email-Konten verwalten</button>
+{{elseif status === 'accountList'}}
+<table width="50%">
+    <col width="50%">
+    <col width="25%">
+    {{#each accounts as account, index}}
+    <tr>
+        <td>{{account.user}}@example.com</td>
+        <td>
+            <button on:click="splice('accounts', i, 1)">Delete</button>
+        </td>
+    </tr>
+    {{/each}}
+</table>
+<div>
+    <label for="username">Username: </label>
+    <input id="username" bind:value='newItem' placeholder='user name'/>@example.com
+    <button on:click="push('accounts', {user:newItem})">Add account</button>
+</div>
+<button on:click="set({'status': 'idle'})">Ok</button>
+{{/if}}
+</div>
+
+<script>
+    import {splice, push} from 'svelte-extras';
+
+    export default {
+        oncreate() {
+            console.log("coming up");
+        },
+        methods: {
+            splice,
+            push
+        },
+        data() {
+            return {
+                status: 'idle',
+                accounts: [
+                    {user: 'joe'},
+                    {user: 'jane'}
+                ],
+                product: '',
+                newItem: '',
+            }
+        }
+    }
+</script>
+

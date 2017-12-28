@@ -25,5 +25,8 @@
     "esm": "js",
     "cjs": true,
     "cache": false
+  },
+  "devDependencies": {
+    "npm-run-parallel": "^0.6.0"
   }
 }

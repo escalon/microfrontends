@@ -1,4 +1,4 @@
-import App from './App.html';
+import App from './CartApp.html';
 import { createHistory } from 'svelte-routing';
 
 createHistory('browser');

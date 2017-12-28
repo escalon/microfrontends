@@ -14,7 +14,7 @@ server.get('/cart/*', function(req, res) {
     history.replace(req.url);
     res.write(`
     <!DOCTYPE html>
-    <div id="cart">${app.render().html}</div> 
+    <div id="cart">${app.render()}</div> 
     <script src="/cart/bundle.js"></script>
   `);
     res.end();

@@ -18,17 +18,6 @@ export default [
         external: ['svelte/store.js'],
         plugins: plugins()
     }
-    // {
-    //     input: 'main.js',
-    //     output: {
-    //         file: pkg.module,
-    //         format: 'es',
-    //         name: 'cartcomponents',
-    //         sourcemap: true,
-    //     },
-    //     external: ['svelte/store.js'],
-    //     plugins: plugins()
-    // }
 ];
 
 function plugins() {

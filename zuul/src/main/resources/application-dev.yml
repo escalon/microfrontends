@@ -14,6 +14,9 @@ zuul:
     product:
       path: /product/**
       url: http://localhost:3006/product
+    hostingactions:
+      path: /hostingactions/**
+      url: http://localhost:3007/hostingactions
     index:
       path: /**
       url: http://localhost:8080/

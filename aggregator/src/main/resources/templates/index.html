@@ -50,20 +50,7 @@
             display: none;
         }
 
-        /*@media screen and (max-width: 600px) {*/
-        /*nav li {*/
-        /*display: block;*/
-        /*width: 50%;*/
-        /*}*/
-        /*}*/
-
-        /*@media only screen and (max-width: 30em) {*/
-        /*nav li {*/
-        /*width: 100%;*/
-        /*}*/
-        /*}*/
-
-        @media screen and (max-width: 600px) {
+        @media screen and (max-width: 54rem) {
             nav li:not(:first-child) {
                 display: none;
             }
@@ -75,7 +62,7 @@
             }
         }
 
-        @media screen and (max-width: 600px) {
+        @media screen and (max-width: 54rem) {
             nav.responsive {
                 position: relative;
             }
@@ -102,14 +89,15 @@
 <body>
 
 <nav class="topnav" id="myTopnav">
+    <!-- "Hosting example.de", "Domain example.com", "DSL 50 MBit/s", "LTE 10 GB", "Office", "Cloud Storage"-->
     <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#" class="active">Cheese</a></li>
-        <li><a href="#">Bakery</a></li>
-        <li><a href="#">Candy</a></li>
-        <li><a href="#">Meat</a></li>
-        <li><a href="#">Dairy</a></li>
-        <li><a href="#">Fish</a></li>
+        <li><a href="#" class="active">Home</a></li>
+        <li><a href="#">Festnetz</a></li>
+        <li><a href="#">Mobilnetz</a></li>
+        <li><a href="#">Hosting</a></li>
+        <li><a href="#">Domäne</a></li>
+        <li><a href="#">Cloud Storage</a></li>
+        <li><a href="#">Software als Service</a></li>
         <li class="burger"><a href="javascript:void(0);" onclick="showDropdown()">&#9776;</a></li>
     </ul>
 </nav>

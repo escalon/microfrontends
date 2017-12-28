@@ -1,0 +1,21 @@
+<Product :product></Product>
+<AddToCart :product></AddToCart>
+<slot name="actions">No actions</slot>
+<p>End of ProductPanel</p>
+
+<script>
+    import Product from './Product.html';
+    import AddToCart from 'cartcomponents/components/AddToCart.html';
+
+    export default {
+        components: {
+            Product,
+            AddToCart
+        },
+        data() {
+            return {
+                product: ''
+            }
+        }
+    };
+</script>

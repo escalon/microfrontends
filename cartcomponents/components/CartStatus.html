@@ -1,4 +1,4 @@
-<button on:click="fire('cartToggled')" class="cartStatus">{{itemCount}} item{{itemCount == 1? '': 's'}} &#x1F6D2;</button>
+<button class="button button--clear" on:click="fire('cartToggled')" class="cartStatus">{{itemCount}} item{{itemCount == 1? '': 's'}} &#x1F6D2;</button>
 <script>
     export default {
         computed: {

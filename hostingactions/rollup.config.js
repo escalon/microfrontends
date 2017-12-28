@@ -13,11 +13,8 @@ export default [
         output: {
             file: pkg.browser,
             format: 'iife',
-            sourcemap: true
-        },
-        external: ['hostingactions/EmailAction.html'],
-        globals: {
-            'hostingactions/EmailAction.html' : 'hostingactions.EmailAction'
+            sourcemap: true,
+            name: 'hostingactions'
         },
         plugins: [
             svelte({
@@ -32,11 +29,12 @@ export default [
             }),
             commonjs(),
             replace({'process.env.NODE_ENV': '"production"'}),
-            buble()
+            buble(),
+            livereload({watch: 'dist', port: 35732})
         ]
     },
     {
-        input: 'ProductApp.html',
+        input: 'HostingActionsApp.html',
         output: {
             file: pkg.main,
             format: 'cjs',

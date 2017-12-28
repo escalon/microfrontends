@@ -8,11 +8,11 @@
     "build": "rollup -c"
   },
   "dependencies": {
-    "svelte": "^1.43.1",
+    "svelte": "^1.49.3",
     "svelte-extras": "^1.6.0"
   },
   "devDependencies": {
-    "rollup": "^0.52.0",
+    "rollup": "^0.52.3",
     "rollup-plugin-buble": "^0.18.0",
     "rollup-plugin-commonjs": "^8.2.6",
     "rollup-plugin-node-resolve": "^3.0.0",
