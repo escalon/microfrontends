@@ -1,0 +1,26 @@
+<div class="backendChoiceAction">
+    {{#if status === 'idle'}}
+    <button class="button button--clear" on:click="set({status: 'choice'})">Choose backend</button>
+    {{elseif status === 'choice'}}
+    <div><select>
+        <option>Linux, Apache, MySQL, PHP</option>
+        <option>Linux, Java</option>
+    </select></div>
+    <button on:click="set({'status': 'idle'})">Ok</button>
+    {{/if}}
+</div>
+
+<script>
+
+    export default {
+        oncreate() {
+        },
+        data() {
+            return {
+                status: 'idle',
+                product: {},
+            }
+        }
+    }
+</script>
+

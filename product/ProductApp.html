@@ -1,25 +1,24 @@
 {{#each products as product}}
 <ProductPanel :product>
     <div slot="actions">
-        <EmailAction></EmailAction>
+        <ProductActions :product></ProductActions>
     </div>
 </ProductPanel>
 {{/each}}
-<p>End of ProductApp</p>
 
 <script>
     import ProductPanel from './components/ProductPanel.html';
-    import EmailAction from 'hostingactions/EmailAction.html'
+    import ProductActions from './components/ProductActions.html'
     import store from 'cartcomponents/store.js'
 
     export default {
         components: {
             ProductPanel,
-            EmailAction
+            ProductActions
         },
         data() {
             return {
-                products: []
+                products: [],
             }
         },
         store: () => store

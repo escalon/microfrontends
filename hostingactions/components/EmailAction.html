@@ -1,13 +1,13 @@
-<div class="hostingActions">
+<div class="emailAction">
 {{#if status === 'idle'}}
-<button class="button button--clear" on:click="set({status: 'accountList'})">Email-Konten verwalten</button>
+<button class="button button--clear" on:click="set({status: 'accountList'})">Manage Email Accounts</button>
 {{elseif status === 'accountList'}}
 <table width="50%">
     <col width="50%">
     <col width="25%">
     {{#each accounts as account, index}}
     <tr>
-        <td>{{account.user}}@example.com</td>
+        <td>{{account.user}}@{{product.domain}}</td>
         <td>
             <button on:click="splice('accounts', i, 1)">Delete</button>
         </td>
@@ -16,7 +16,7 @@
 </table>
 <div>
     <label for="username">Username: </label>
-    <input id="username" bind:value='newItem' placeholder='user name'/>@example.com
+    <input id="username" bind:value='newItem' placeholder='user name'/>@{{product.domain}}
     <button on:click="push('accounts', {user:newItem})">Add account</button>
 </div>
 <button on:click="set({'status': 'idle'})">Ok</button>
@@ -28,7 +28,6 @@
 
     export default {
         oncreate() {
-            console.log("coming up");
         },
         methods: {
             splice,
@@ -41,7 +40,7 @@
                     {user: 'joe'},
                     {user: 'jane'}
                 ],
-                product: '',
+                product: {},
                 newItem: '',
             }
         }

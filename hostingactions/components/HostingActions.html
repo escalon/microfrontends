@@ -1,0 +1,19 @@
+{{#if product.domain}}
+<EmailAction :product></EmailAction>
+{{/if}}
+{{#if product.hostingType}}
+<BackendChoiceAction :product></BackendChoiceAction>
+{{/if}}
+
+<script>
+    import EmailAction from './EmailAction.html'
+    import BackendChoiceAction from './BackendChoiceAction.html'
+
+    export default {
+        components: {
+            EmailAction,
+            BackendChoiceAction
+        }
+    }
+
+</script>

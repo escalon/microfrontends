@@ -1,8 +1,41 @@
-<h3>{{product}}</h3>
-<p>Lorem {{product}} ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+<h3>{{product.name}}</h3>
+
+{{#if product.name==='Domain'}}
+<Domain :product></Domain>
+{{elseif product.name==='Hosting'}}
+<Hosting :product></Hosting>
+{{elseif product.name==='DSL'}}
+<Dsl :product></Dsl>
+{{elseif product.name==='LTE'}}
+<Lte :product></Lte>
+{{elseif product.name==='Office as a Service'}}
+<Oaas :product></Oaas>
+{{elseif product.name==='Cloud Storage'}}
+<CloudStorage :product></CloudStorage>
+{{else}}
+{{#each Object.keys(product).filter(key => key !== 'name') as key}}
+<div>{{key}}: {{product[key]}}</div>
+{{/each}}
+{{/if}}
+
 
 <script>
+    import Domain from './Domain.html';
+    import Hosting from './Hosting.html';
+    import Dsl from './Dsl.html'
+    import Lte from './Lte.html'
+    import Oaas from './Oaas.html'
+    import CloudStorage from './CloudStorage.html'
+
     export default {
-        tag: 'product-card'
+        components: {
+            Domain,
+            Hosting,
+            Dsl,
+            Lte,
+            Oaas,
+            CloudStorage
+        }
+
     };
 </script>

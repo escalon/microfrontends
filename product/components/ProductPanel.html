@@ -1,7 +1,6 @@
 <Product :product></Product>
+<slot name="actions"></slot>
 <AddToCart :product></AddToCart>
-<slot name="actions">No actions</slot>
-<p>End of ProductPanel</p>
 
 <script>
     import Product from './Product.html';
@@ -14,7 +13,7 @@
         },
         data() {
             return {
-                product: ''
+                product: {}
             }
         }
     };

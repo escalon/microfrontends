@@ -1,0 +1,17 @@
+{{#if product.name==='Domain' || product.name==='Hosting'}}
+<HostingActions :product></HostingActions>
+{{else}}
+<p>Currently no actions available</p>
+{{/if}}
+
+<script>
+    import HostingActions from 'hostingactions/HostingActions.html';
+
+    export default {
+        components: {
+            HostingActions
+        }
+
+    };
+
+</script>

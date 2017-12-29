@@ -32,7 +32,8 @@ export default [
             }),
             commonjs(),
             replace({'process.env.NODE_ENV': '"production"'}),
-            buble()
+            buble(),
+            //livereload({watch: 'dist/product', port: 35733})
         ]
     },
     {

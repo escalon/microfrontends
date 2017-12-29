@@ -9,7 +9,35 @@ server.get('/product/', function (req, res) {
 
     res.write(`
     <!DOCTYPE html>
-    <div id="product">${app.render()}</div> 
+    <div id="product">${app.render({
+        products: [
+            {
+                name: "Hosting",
+                domain: 'example.de',
+                hostingType: "lamp"
+            },
+            {
+                name: "Domain",
+                domain: 'example.de'
+            },
+            {
+                name: "DSL",
+                speed: "50 MBit/s"
+            },
+            {
+                name: "LTE",
+                dataAllowance: "10 GB"
+            },
+            {
+                name: "Office"
+            },
+            {
+                name: "Cloud Storage",
+                size: "250 GB"
+            }
+
+        ]
+    })}</div> 
     <script src="/hostingactions/bundle.js"></script>
     <script src="/product/bundle.js"></script>
   `);

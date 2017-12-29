@@ -1,5 +1,9 @@
 # Module product
 
+## Quirks
+
+* expects dist/hostingactions/bundle.js to be present when running locally - in prod the bundle comes from the same domain via zuul.
+
 ## Building
 The product application is provided in two bundles in _dist_:
 
