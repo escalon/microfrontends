@@ -4,14 +4,19 @@
 {{#if product.hostingType}}
 <BackendChoiceAction :product></BackendChoiceAction>
 {{/if}}
+{{#if product.speed}}
+<ConnectionSpeedAction :product></ConnectionSpeedAction>
+{{/if}}
 
 <script>
     import EmailAction from './EmailAction.html'
     import BackendChoiceAction from './BackendChoiceAction.html'
+    import ConnectionSpeedAction from './ConnectionSpeedAction.html'
 
     export default {
         components: {
             EmailAction,
+            ConnectionSpeedAction,
             BackendChoiceAction
         }
     }

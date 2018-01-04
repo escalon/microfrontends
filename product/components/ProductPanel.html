@@ -1,15 +1,14 @@
-<Product :product></Product>
-<slot name="actions"></slot>
-<AddToCart :product></AddToCart>
+<ProductDescription :product></ProductDescription>
+<ProductActions :product></ProductActions>
 
 <script>
-    import Product from './Product.html';
-    import AddToCart from 'cartcomponents/components/AddToCart.html';
+    import ProductDescription from './ProductDescription.html';
+    import ProductActions from './ProductActions.html'
 
     export default {
         components: {
-            Product,
-            AddToCart
+            ProductDescription,
+            ProductActions
         },
         data() {
             return {

@@ -5,9 +5,9 @@
         <col width="25%">
         {{#each items as item, index}}
         <tr>
-            <td><a target='_blank'>{{item}}</a></td>
+            <td><a target='_blank'>{{item.name}}</a></td>
             <td>
-                <button on:click="removeItem(index)">Delete</button>
+                <button class="button" on:click="removeItem(index)">Delete</button>
             </td>
         </tr>
         {{/each}}

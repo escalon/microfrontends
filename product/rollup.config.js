@@ -15,9 +15,9 @@ export default [
             format: 'iife',
             sourcemap: true
         },
-        external: ['hostingactions/EmailAction.html'],
+        external: ['hostingactions/HostingActions.html'],
         globals: {
-            'hostingactions/EmailAction.html' : 'hostingactions.EmailAction'
+            'hostingactions/HostingActions.html' : 'hostingactions.HostingActions'
         },
         plugins: [
             svelte({

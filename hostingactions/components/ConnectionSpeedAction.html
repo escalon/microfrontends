@@ -1,11 +1,12 @@
-<div class="backendChoiceAction">
+<div class="connectionSpeedAction">
     {{#if status === 'idle'}}
-    <button class="button button--clear button--small" on:click="set({status: 'choice'})">Choose backend</button>
+    <button class="button button--clear button--small" on:click="set({status: 'choice'})">Change connection speed</button>
     {{elseif status === 'choice'}}
-    <Modal title="Choose backend" on:modaldone="set({'status': 'idle'})">
+    <Modal title="Change speed" on:modaldone="set({'status': 'idle'})">
         <p><select>
-            <option>Linux, Apache, MySQL, PHP</option>
-            <option>Linux, Java</option>
+            <option>16 Mbit/s at 14.99 EUR</option>
+            <option>50 Mbit/s at 16.99 EUR</option>
+            <option>100 Mbit/s at 19.99 EUR</option>
         </select>
         </p>
         <button class="button" on:click="set({'status': 'idle'})">Ok</button>
@@ -30,4 +31,3 @@
         }
     }
 </script>
-

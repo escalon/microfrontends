@@ -1,15 +1,14 @@
-{{#if product.name==='Domain' || product.name==='Hosting'}}
 <HostingActions :product></HostingActions>
-{{else}}
-<p>Currently no actions available</p>
-{{/if}}
+<!-- TODO: Have InternetAccessActions -->
 
 <script>
     import HostingActions from 'hostingactions/HostingActions.html';
+    import AddToCart from 'cartcomponents/components/AddToCart.html';
 
     export default {
         components: {
-            HostingActions
+            HostingActions,
+            AddToCart
         }
 
     };

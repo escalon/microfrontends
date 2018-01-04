@@ -1,20 +1,19 @@
 {{#each products as product}}
-<ProductPanel :product>
-    <div slot="actions">
-        <ProductActions :product></ProductActions>
-    </div>
-</ProductPanel>
+<ProductPanel :product></ProductPanel>
+{{/each}}
+{{#each promotions as product}}
+<PromotionsPanel :product></PromotionsPanel>
 {{/each}}
 
 <script>
     import ProductPanel from './components/ProductPanel.html';
-    import ProductActions from './components/ProductActions.html'
+    import PromotionsPanel from './components/PromotionsPanel.html';
     import store from 'cartcomponents/store.js'
 
     export default {
         components: {
             ProductPanel,
-            ProductActions
+            PromotionsPanel
         },
         data() {
             return {

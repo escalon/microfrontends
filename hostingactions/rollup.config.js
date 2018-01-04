@@ -30,7 +30,7 @@ export default [
             commonjs(),
             replace({'process.env.NODE_ENV': '"production"'}),
             buble(),
-            livereload({watch: 'dist', port: 35732})
+            // livereload({watch: 'dist', port: 35732})
         ]
     },
     {

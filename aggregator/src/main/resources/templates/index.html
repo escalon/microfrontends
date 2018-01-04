@@ -8,8 +8,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <style>
         body {
-            max-width: 75em;
-            margin: 0 auto;
+            /*max-width: 75em;*/
+            /*margin: 0 auto;*/
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin: 3rem 0 1rem;
+        }
+
+        .button {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        button.button--clear:focus {
+            background-color: transparent;
+            border-color: transparent;
+            color: #0f866b;
         }
 
         nav {
@@ -50,7 +65,7 @@
             display: none;
         }
 
-        @media screen and (max-width: 54rem) {
+        @media screen and (max-width: 60rem) {
             nav li:not(:first-child) {
                 display: none;
             }
@@ -62,7 +77,7 @@
             }
         }
 
-        @media screen and (max-width: 54rem) {
+        @media screen and (max-width: 60rem) {
             nav.responsive {
                 position: relative;
             }
@@ -88,6 +103,7 @@
 </head>
 <body>
 
+<div class="container">
 <nav class="topnav" id="myTopnav">
     <!-- "Hosting example.de", "Domain example.com", "DSL 50 MBit/s", "LTE 10 GB", "Office", "Cloud Storage"-->
     <ul>
@@ -110,7 +126,7 @@
 </div>
 
 <div th:replace="fragments/footer :: footer">hi</div>
-</body>
+</div>
 <script>
     function showDropdown() {
         var x = document.getElementById("myTopnav");
@@ -121,4 +137,5 @@
         }
     }
 </script>
+</body>
 </html>

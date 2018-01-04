@@ -1,0 +1,41 @@
+<h3>{{product.name}}</h3>
+
+{{#if product.name==='Domain'}}
+<DescDomain :product></DescDomain>
+{{elseif product.name==='Hosting'}}
+<DescHosting :product></DescHosting>
+{{elseif product.name==='DSL'}}
+<DescDsl :product></DescDsl>
+{{elseif product.name==='LTE'}}
+<DescLte :product></DescLte>
+{{elseif product.name==='Office as a Service'}}
+<DescOaas :product></DescOaas>
+{{elseif product.name==='Cloud Storage'}}
+<DescCloudStorage :product></DescCloudStorage>
+{{else}}
+{{#each Object.keys(product).filter(key => key !== 'name') as key}}
+<div>{{key}}: {{product[key]}}</div>
+{{/each}}
+{{/if}}
+
+
+<script>
+    import DescDomain from './DescDomain.html';
+    import DescHosting from './DescHosting.html';
+    import DescDsl from './DescDsl.html'
+    import DescLte from './DescLte.html'
+    import DescOaas from './DescOaas.html'
+    import DescCloudStorage from './DescCloudStorage.html'
+
+    export default {
+        components: {
+            DescDomain,
+            DescHosting,
+            DescDsl,
+            DescLte,
+            DescOaas,
+            DescCloudStorage
+        }
+
+    };
+</script>

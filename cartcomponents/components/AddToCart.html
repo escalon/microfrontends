@@ -1,4 +1,4 @@
-<button on:click="add(product)">Add</button> ({{itemCount}})
+<button class="button button--clear button--small" on:click="add(product)">Add</button> ({{itemCount}})
 
 <script>
     import store from '../store.js'
@@ -15,7 +15,7 @@
         },
         data() {
             return {
-                product: ''
+                product: {}
             }
         },
         store: () => store

@@ -18,20 +18,24 @@ const app = new ProductApp({
             {
                 name: "DSL",
                 speed: "50 MBit/s"
+            }
+        ],
+        promotions: [
+            {
+                name: "Cloud Storage",
+                size: "250 GB",
+                offerPrice: 'Free'
             },
             {
                 name: "LTE",
-                dataAllowance: "10 GB"
+                dataAllowance: "10 GB",
+                offerPrice: 7.99
             },
             {
                 name: "Office as a Service",
-                users: 5
+                users: 5,
+                offerPrice: 5.99
             },
-            {
-                name: "Cloud Storage",
-                size: "250 GB"
-            }
-
         ]
     }
 });

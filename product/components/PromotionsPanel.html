@@ -1,0 +1,29 @@
+<PromotionDescription :product></PromotionDescription>
+<div class="promotion"><strong>{{product.offerPrice}}!</strong></div>
+<PromotionActions :product></PromotionActions>
+
+<script>
+    import PromotionDescription from './PromotionDescription.html';
+    import PromotionActions from './PromotionActions.html'
+
+    export default {
+        components: {
+            PromotionDescription,
+            PromotionActions
+        },
+        data() {
+            return {
+                product: {}
+            }
+        }
+    };
+</script>
+
+<style>
+    .promotion {
+        color: #E2E285;
+        font-size: 2.5rem;
+        padding-left: 12px;
+    }
+
+</style>

@@ -1,0 +1,81 @@
+<div id="microfrontendsModal" class="modaloverlay">
+    <div class="modal">
+        <button class="close button button--clear" on:click="close()">&times;</button>
+        <div>
+            <h3>{{title}}</h3>
+            <slot><!-- content of Modal element here --></slot>
+        </div>
+    </div>
+</div>
+
+<script>
+    export default {
+        methods: {
+          close() {
+              this.fire('modaldone')
+          }
+        },
+        data() {
+            return {
+                active: false
+            };
+        }
+    }
+</script>
+
+<style>
+    .modaloverlay {
+        background: rgba(0, 0, 0, 0.8);
+        bottom: 0;
+        left: 0;
+        position: fixed;
+        right: 0;
+        top: 0;
+        display: block;
+        opacity: 1;
+        pointer-events: auto;
+        z-index: 99999;
+    }
+
+    .modaloverlay .modal {
+        background-color: white;
+        height: 100%;
+        position: relative;
+        margin: 0 auto;
+        padding: 3em;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    @media (min-width: 60em) {
+        .modaloverlay .modal {
+            /*max-height: 75%;*/
+            margin: 5% auto;
+            overflow:auto;
+            height: auto;
+            max-width: 66em;
+            width: 85%;
+        }
+    }
+
+    .modaloverlay .modal > iframe, .modaloverlay .modal > div {
+        border: none;
+        width: 100%;
+        height: 100%;
+    }
+
+    .modaloverlay .close {
+        cursor:pointer;
+        /*background-color: turquoise;*/
+        /*color: white;*/
+        font-size: 4rem;
+        padding: 8px 12px;
+        position: absolute;
+        right: 0;
+        text-align: center;
+        text-decoration: none;
+        top: 0;
+        z-index: 1;
+    }
+
+</style>

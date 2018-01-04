@@ -1,11 +1,15 @@
 import HostingActionsApp from './HostingActionsApp.html';
-import EmailAction from './components/EmailAction.html';
+import HostingActions from './components/HostingActions.html';
 
 const app = new HostingActionsApp({
     target: document.getElementById('hostingactions'),
-    hydrate: true
+    hydrate: true,
+    data: {
+        product: {domain: 'huzzl.de',
+        hostingType: 'lamp'}
+    }
 });
 
 export default {
-    EmailAction
+    HostingActions
 }

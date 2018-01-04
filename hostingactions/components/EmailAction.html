@@ -1,37 +1,66 @@
 <div class="emailAction">
-{{#if status === 'idle'}}
-<button class="button button--clear" on:click="set({status: 'accountList'})">Manage Email Accounts</button>
-{{elseif status === 'accountList'}}
-<table width="50%">
-    <col width="50%">
-    <col width="25%">
-    {{#each accounts as account, index}}
-    <tr>
-        <td>{{account.user}}@{{product.domain}}</td>
-        <td>
-            <button on:click="splice('accounts', i, 1)">Delete</button>
-        </td>
-    </tr>
-    {{/each}}
-</table>
-<div>
-    <label for="username">Username: </label>
-    <input id="username" bind:value='newItem' placeholder='user name'/>@{{product.domain}}
-    <button on:click="push('accounts', {user:newItem})">Add account</button>
-</div>
-<button on:click="set({'status': 'idle'})">Ok</button>
-{{/if}}
+    {{#if status === 'idle'}}
+    <button class="button button--clear button--small" on:click="set({status: 'accountList'})">Manage Email Accounts</button>
+    {{elseif status === 'accountList'}}
+    <Modal title="Manage Email Accounts" on:modaldone="set({'status': 'idle'})">
+        <table width="50%">
+            <col width="50%">
+            <col width="25%">
+            {{#each accounts as account, index}}
+            <tr>
+                <td>{{account.user}}@{{product.domain}}</td>
+                <td>
+                    <button class="button" on:click="splice('accounts', i, 1)">Delete</button>
+                </td>
+            </tr>
+            {{/each}}
+        </table>
+        <form class="form">
+            <label class="form__label" for="username">Username: </label>
+            <input id="newAccount" type="text"
+                class="newAccount form__input{{errors.newAccount?' form__input--error':' form__input--success'}}"
+                bind:value='newAccount' on:blur="validate(event.target)" placeholder='user name'/>
+                @{{product.domain}}
+            <button disabled="{{Object.keys(errors).length !== 0}}" title="{{errors.newAccount? `'${newAccount}@${product.domain}' ${errors.newAccount.join()}`: ''}}"
+                class="button" on:click="push('accounts', { user: newAccount })">Add account</button>
+        </form>
+        <button class="button" on:click="set({'status': 'idle'})">Ok</button>
+    </Modal>
+    {{/if}}
 </div>
 
 <script>
     import {splice, push} from 'svelte-extras';
+    import Modal from './Modal.html';
+    import validate from 'validate.js';
+
+    const constraints = {
+        newAccount: {
+            email: true,
+        }
+    }
 
     export default {
         oncreate() {
+
+        },
+        components: {
+          Modal
         },
         methods: {
             splice,
-            push
+            push,
+            validate(target) {
+                const attribute = target.id;
+                const value = this.get(attribute) + '@' + this.get('product').domain;
+                const errors = validate.single(value, constraints[attribute]);
+                if(errors) {
+                    this.set({'errors': {[attribute]: errors}}); // ES6: computed key
+                } else {
+                    this.set({'errors': {}});
+                }
+                console.log(errors);
+            }
         },
         data() {
             return {
@@ -41,9 +70,16 @@
                     {user: 'jane'}
                 ],
                 product: {},
-                newItem: '',
+                newAccount: '',
+                errors: {}
             }
         }
     }
 </script>
+
+<style>
+    input.newAccount {
+        width: 50%
+    }
+</style>
 
