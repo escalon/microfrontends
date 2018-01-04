@@ -1,4 +1,4 @@
-Microfrontends Demo
+= Microfrontends Demo
 :toc:
 :icons: font
 
