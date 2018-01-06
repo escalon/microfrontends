@@ -10,7 +10,7 @@
             <tr>
                 <td>{{account.user}}@{{product.domain}}</td>
                 <td>
-                    <button class="button" on:click="splice('accounts', i, 1)">Delete</button>
+                    <button class="button button--small" on:click="splice('accounts', i, 1)">Delete</button>
                 </td>
             </tr>
             {{/each}}
@@ -19,12 +19,13 @@
             <label class="form__label" for="username">Username: </label>
             <input id="newAccount" type="text"
                 class="newAccount form__input{{errorOrSuccess}}"
+                title="{{errors.newAccount? `'${newAccount}@${product.domain}' ${errors.newAccount.join()}`: ''}}"
                 bind:value='newAccount' on:keyup="validate(event.target)" placeholder='user name'/>
                 @{{product.domain}}
             <button type="button"
                 disabled="{{!newAccount || Object.keys(errors).length !== 0}}"
                 title="{{errors.newAccount? `'${newAccount}@${product.domain}' ${errors.newAccount.join()}`: ''}}"
-                class="button" on:click="push('accounts', { user: newAccount })">Add account</button>
+                class="button button--small" on:click="push('accounts', { user: newAccount })">Add account</button>
         </form>
         <button class="button" on:click="set({'status': 'idle'})">Ok</button>
     </Modal>
@@ -54,20 +55,24 @@
             push,
             validate(target) {
                 const attribute = target.id;
-                const value = this.get(attribute) + '@' + this.get('product').domain;
-                const errors = validate.single(value, constraints[attribute]);
-                if(errors) {
+                const value = this.get(attribute);
+                const toValidate = constraints[attribute].email?`${value}@${this.get('product').domain}`:value;
+                const errors = validate.single(toValidate, constraints[attribute]);
+                if(value && errors) {
                     this.set({'errors': {[attribute]: errors}}); // ES6: computed key
                 } else {
                     this.set({'errors': {}});
                 }
-                console.log(errors);
             }
         },
         computed: {
-          errorOrSuccess: (newAccount, errors) =>  newAccount
-            ? (errors.newAccount?' form__input--error':' form__input--success')
-            : ''
+          errorOrSuccess: (newAccount, errors) =>  {
+              return newAccount
+                ? (errors.newAccount
+                    ?' form__input--error'
+                    :' form__input--success')
+                : ''
+            }
         },
         data() {
             return {
