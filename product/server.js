@@ -46,12 +46,12 @@ server.get('/product/', function (req, res) {
             {
                 name: "LTE",
                 dataAllowance: "10 GB",
-                offerPrice: 7.99
+                offerPrice: 'EUR 7.99'
             },
             {
                 name: "Office as a Service",
                 users: 5,
-                offerPrice: 5.99
+                offerPrice: 'EUR 5.99'
             },
         ]
     })}</div> 

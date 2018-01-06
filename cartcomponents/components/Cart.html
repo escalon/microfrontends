@@ -7,7 +7,7 @@
         <tr>
             <td><a target='_blank'>{{item.name}}</a></td>
             <td>
-                <button class="button" on:click="removeItem(index)">Delete</button>
+                <button class="button button--small" on:click="removeItem(index)">Delete</button>
             </td>
         </tr>
         {{/each}}
@@ -33,3 +33,9 @@
         }
     }
 </script>
+
+<style>
+    table {
+        border-spacing: 0.3em;
+    }
+</style>

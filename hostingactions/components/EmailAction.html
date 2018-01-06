@@ -18,10 +18,12 @@
         <form class="form">
             <label class="form__label" for="username">Username: </label>
             <input id="newAccount" type="text"
-                class="newAccount form__input{{errors.newAccount?' form__input--error':' form__input--success'}}"
-                bind:value='newAccount' on:blur="validate(event.target)" placeholder='user name'/>
+                class="newAccount form__input{{errorOrSuccess}}"
+                bind:value='newAccount' on:keyup="validate(event.target)" placeholder='user name'/>
                 @{{product.domain}}
-            <button disabled="{{Object.keys(errors).length !== 0}}" title="{{errors.newAccount? `'${newAccount}@${product.domain}' ${errors.newAccount.join()}`: ''}}"
+            <button type="button"
+                disabled="{{!newAccount || Object.keys(errors).length !== 0}}"
+                title="{{errors.newAccount? `'${newAccount}@${product.domain}' ${errors.newAccount.join()}`: ''}}"
                 class="button" on:click="push('accounts', { user: newAccount })">Add account</button>
         </form>
         <button class="button" on:click="set({'status': 'idle'})">Ok</button>
@@ -61,6 +63,11 @@
                 }
                 console.log(errors);
             }
+        },
+        computed: {
+          errorOrSuccess: (newAccount, errors) =>  newAccount
+            ? (errors.newAccount?' form__input--error':' form__input--success')
+            : ''
         },
         data() {
             return {

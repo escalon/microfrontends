@@ -282,7 +282,7 @@ IMPORTANT: On Windows 10 it is necessary to run docker-compose in a *standalone 
 == Todo
 * Git submodules for cartcomponents and hostingactions so that npm link is not required for building and running
 
-* Config for dev-only execution of product (exposes ../hostingactions/dist/hostingactions as static resource)
+* Config for dev-only execution of product (exposes ../hostingactions/dist/hostingactions as static resource), should not do that in production
 
 * Use real ReST backend to store changes
 
