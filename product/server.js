@@ -3,12 +3,8 @@ const express = require('express');
 const app = require('./dist/ssr/bundle.js'); // require component
 const server = express();
 
-// server.configure('/', function() {
-    server.use('/', express.static(path.join(__dirname, 'dist')));
-    // server.use('/hostingactions', express.static(path.join(__dirname, '..', 'hostingactions', 'dist', 'hostingactions')));
-// });
-
-//server.use(express.static(path.join(__dirname, 'dist')));
+server.use('/', express.static(path.join(__dirname, 'dist')));
+server.use('/hostingactions', express.static(path.join(__dirname, '..', 'hostingactions', 'dist', 'hostingactions')));
 
 server.get('/product/', function (req, res) {
 
