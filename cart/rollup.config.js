@@ -55,5 +55,27 @@ export default [
             buble(),
             // buble({transforms: {classes: false}})
         ]
-    }
+    },
+    {
+        input: 'main.js',
+        output: {
+            file: pkg.cc,
+            format: 'iife',
+            store: true,
+            sourcemap: true
+        },
+        plugins: [
+            svelte({
+                hydratable: true,
+                store: true,
+                customElement: true
+            }),
+            resolve(),
+            commonjs(),
+            replace({'process.env.NODE_ENV': '"production"'}),
+            buble({transforms: {classes: false}}),
+            // livereload({watch: 'dist', port: 35731})
+        ]
+    },
+
 ];

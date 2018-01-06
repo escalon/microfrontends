@@ -7,8 +7,7 @@
     <link rel="stylesheet" href="comet.min.css"/>
     <link rel="stylesheet" href="style.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-
-
+    <script type="text/javascript" src="shadow-dom.js"></script>
 </head>
 <body>
 
@@ -27,7 +26,7 @@
     </ul>
 </nav>
 <div class="cart">
-    <div th:replace="${@environment.getProperty('cartservice.url')}"></div>
+    <cart-app></cart-app>
 </div>
 
 <div>
@@ -46,5 +45,6 @@
         }
     }
 </script>
+<script type="text/javascript" src="/cart/bundle.cc.js"></script>
 </body>
 </html>

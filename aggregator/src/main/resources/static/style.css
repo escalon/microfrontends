@@ -1,0 +1,91 @@
+body {
+    /*max-width: 75em;*/
+    /*margin: 0 auto;*/
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 3rem 0 1rem;
+}
+
+.button {
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+button.button--clear:focus {
+    background-color: transparent;
+    border-color: transparent;
+    color: #0f866b;
+}
+
+nav {
+    overflow: hidden;
+    background-color: #626979;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+}
+
+nav li {
+    display: inline;
+    color: #f2f2f2;
+}
+
+nav li a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    font-size: 2rem;
+    border-bottom: none;
+}
+
+nav a:hover {
+    background-color: #DDD;
+}
+
+nav a.active {
+    background-color: #19E2B5;
+    color: #333;
+}
+
+nav .burger {
+    display: none;
+}
+
+@media screen and (max-width: 60rem) {
+    nav li:not(:first-child) {
+        display: none;
+    }
+
+    nav li.burger {
+        float: right;
+        display: block;
+
+    }
+}
+
+@media screen and (max-width: 60rem) {
+    nav.responsive {
+        position: relative;
+    }
+
+    nav.responsive .burger {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
+    nav.responsive li {
+        display: block;
+    }
+
+    nav.responsive a {
+        float: none;
+        text-align: left;
+    }
+
+}

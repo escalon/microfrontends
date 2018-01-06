@@ -10,7 +10,6 @@
 <!--<Route exact path="/cart/status">-->
 <!--<CartStatus items="{{$items}}"/>-->
 <!--</Route>-->
-
 <CartStatus on:cartToggled="toggleCart()" items="{{$items}}"/>
 {{#if !iconized}}
 <Cart items="{{$items}}"/>
@@ -25,8 +24,8 @@
 
     export default {
         components: {
-            NavLink,
-            Route,
+            // NavLink,
+            // Route,
             CartStatus,
             Cart
         },
@@ -40,6 +39,9 @@
                 this.set({iconized: !this.get('iconized')});
             }
         },
-        store: () => store
+        store: () => {
+           return store
+        },
+        tag: 'cart-app'
     };
 </script>

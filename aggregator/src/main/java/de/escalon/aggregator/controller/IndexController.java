@@ -13,4 +13,9 @@ public class IndexController {
         return "index";
     }
 
+    @RequestMapping("/webcomponent")
+    public String webcomponent() {
+        return "webcomponent";
+    }
+
 }

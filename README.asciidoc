@@ -207,16 +207,6 @@ Since custom elements v1 must be real class files, they cannot be compiled to ES
 For more customElement options see the https://github.com/sveltejs/svelte[documentation of the svelte compiler].
 
 
-.rollup.config.js
-[source, javascript]
-----
-  plugins: [
-    svelte({
-      customElement: true
-    }),
-----
-
-
 == URLs
 
 === Zuul Proxy
@@ -258,6 +248,17 @@ $ npm link cartcomponents
 $ npm link hostingactions
 ----
 
+When the dependencies are linked, you can build cartcomponents, cart, hostingactions and product or continously watch and build them:
+
+[source, bash]
+----
+# build once
+$ npm run build
+
+# continously watch and build
+$ npm run watch
+----
+
 === Java
 
 Building involves packaging and creating docker images. Make sure Docker is running before you execute Maven:
@@ -268,7 +269,18 @@ Building involves packaging and creating docker images. Make sure Docker is runn
 
 === Locally
 
-Run the Java artifacts with dev Spring profile.
+Run the Java artifacts with the Spring profile 'dev' to make them connect with locally running Node instances.
+
+cd into product, cart and hostingactions respectively and execute
+
+    $ npm start
+
+The applications should start and listen on the ports 3005 - 3007.
+
+Open the browser:
+
+   localhost:8888
+   localhost:8888/webcomponent
 
 === Docker
 

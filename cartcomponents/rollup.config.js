@@ -30,3 +30,15 @@ function plugins() {
         // buble({transforms: {classes: false}})
     ]
 }
+
+function pluginsWebComponent() {
+    return [
+        svelte({
+            hydratable: true,
+            store: true,
+            customElement: true
+        }),
+        buble(),
+        buble({transforms: {classes: false}})
+    ]
+}
