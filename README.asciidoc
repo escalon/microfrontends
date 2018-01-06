@@ -278,3 +278,28 @@ IMPORTANT: On Windows 10 it is necessary to run docker-compose in a *standalone 
 
     $ docker-compose -f docker/common/docker-compose.yml up
     $ docker-compose -f docker/common/docker-compose.yml down
+
+== Todo
+* Git submodules for cartcomponents and hostingactions so that npm link is not required for building and running
+
+* Solution for local execution of product (needs to expose dist/hostingactions as static resource)
+
+* Use real ReST backend to store changes
+
+* use rollup dynamic import to dynamically choose product panel per product type, actions on action panel - choosing with #if means new actions must be added statically before they can be used (is it possible to do it fully dynamically at all? What will be in the DOM?), and choosing the available actions should be up to the services team which writes the launchpad. Two level of ifs:
+
+. in product list: product -> launchpad type, e.g. hosting launchpad
+. in action launchpad: product conditions -> action type, e.g. if product.domain then EmailAction
+
+* let each panel retrieve its own data both in SSR and browser when activated - performance issue?
+
+* Use scss
+
+* styling concepts
+** Master style vs. no master style.
++
+With master style there is a css which dominates the page. A component cannot isolate itself against that, (TODO: unless it uses shadow DOM?).
++
+Without master style the pattern lab reigns only over parts which want to be reigned (e.g. classes describing the parts of the page and style which only applies to those), but apps can choose to apply the pattern lab by building their own css prefixed with their own signature class.
+
+** Style which applies to elements having predefined classes like BEM or Bootstrap makes it necessary to apply those classes inside the component markup, is there an alternative which would allow to process the master css so that it becomes part of the component style, applies to the component markup and is stripped down to the styles really needed by the component?

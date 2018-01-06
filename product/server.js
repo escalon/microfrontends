@@ -3,7 +3,12 @@ const express = require('express');
 const app = require('./dist/ssr/bundle.js'); // require component
 const server = express();
 
-server.use(express.static(path.join(__dirname, 'dist')));
+// server.configure('/', function() {
+    server.use('/', express.static(path.join(__dirname, 'dist')));
+    // server.use('/hostingactions', express.static(path.join(__dirname, '..', 'hostingactions', 'dist', 'hostingactions')));
+// });
+
+//server.use(express.static(path.join(__dirname, 'dist')));
 
 server.get('/product/', function (req, res) {
 
@@ -35,7 +40,23 @@ server.get('/product/', function (req, res) {
                 name: "Cloud Storage",
                 size: "250 GB"
             }
-
+        ],
+        promotions: [
+            {
+                name: "Cloud Storage",
+                size: "250 GB",
+                offerPrice: 'Free'
+            },
+            {
+                name: "LTE",
+                dataAllowance: "10 GB",
+                offerPrice: 7.99
+            },
+            {
+                name: "Office as a Service",
+                users: 5,
+                offerPrice: 5.99
+            },
         ]
     })}</div> 
     <script src="/hostingactions/bundle.js"></script>
