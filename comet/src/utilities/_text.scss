@@ -1,0 +1,33 @@
+/*********************************************************
+    Text utility
+*********************************************************/
+.utility {
+  &__text {
+    &--left {
+      text-align: left;
+    }
+
+    &--right {
+      text-align: right;
+    }
+    
+    &--center {
+      text-align: center;
+    }
+
+    &--highlight {
+      padding: .25rem;
+      color: $color__text--black;
+      background-color: $color__background--highlight;
+    }
+
+    &--loud {
+      font-weight: 700;
+      color: $color__text--dark;
+    }
+
+    &--quiet {
+      color: $color__text--light;
+    }
+  }
+}

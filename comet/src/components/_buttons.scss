@@ -1,0 +1,87 @@
+/*********************************************************
+    Buttons
+*********************************************************/
+.button {
+  display: inline-block;
+  padding: 0 2rem;
+  font-family: inherit;
+  font-size: font-scale(-2);
+  font-weight: 700;
+  line-height: 4rem;
+  letter-spacing: .05rem;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: $color__text--white;
+  background-color: $color__primary;
+  border: .2rem solid $color__primary;
+  border-radius: .4rem;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.8;
+    cursor: not-allowed;
+
+    &:hover {
+      background-color: $color__primary;
+      border-color: $color__primary;
+    }
+  }
+  
+  &:hover,
+  &:focus,
+  &:active {
+    color: $color__text--white;
+    background-color: $color__primary--dark;
+    border-color: $color__primary--dark;
+    outline: none;
+  }
+
+  &--small {
+    padding: 0 1rem;
+    font-size: font-scale(-3);
+    line-height: 3rem;
+  }
+
+  &--large {
+    font-size: font-scale(0);
+    line-height: 6rem;
+  }
+
+  &--outline {
+    color: $color__primary;
+    background-color: transparent;
+
+    &:disabled {
+      &:hover {
+        color: $color__primary;
+        background-color: transparent;
+      }
+    }
+
+    &:hover {
+      color: $color__primary--dark;
+      background-color: transparent;
+    }
+  }
+
+  &--clear {
+    color: $color__primary;
+    background-color: transparent;
+    border-color: transparent;
+
+    &:disabled {
+      &:hover {
+        color: $color__primary;
+        background-color: transparent;
+        border-color: transparent;
+      }
+    }
+
+    &:hover {
+      color: $color__primary--dark;
+      background-color: transparent;
+      border-color: transparent;
+    }
+  }
+}

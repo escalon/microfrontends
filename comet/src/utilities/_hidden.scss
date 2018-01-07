@@ -1,0 +1,35 @@
+/*********************************************************
+    Hidden utility
+*********************************************************/
+.utility {
+  &__hidden {
+    &--s,
+    &--m,
+    &--l {
+      display: initial;
+      visibility: visible;
+    }
+  }
+}
+
+@media (min-width: ($breakpoint__medium + 1)) {
+  .utility__hidden--m.utility__hidden--l,
+  .utility__hidden--l.utility__hidden--s,
+  .utility__hidden--l {
+    display: none;
+  }
+}
+
+@media (max-width: $breakpoint__small) {
+  .utility__hidden--l.utility__hidden--s,
+  .utility__hidden--s {
+    display: none;
+  }
+}
+
+@media (min-width: ($breakpoint__small + 1)) and (max-width: $breakpoint__medium) {
+  .utility__hidden--m.utility__hidden--l,
+  .utility__hidden--m {
+    display: none;
+  }
+}

@@ -1,0 +1,34 @@
+/*********************************************************
+    Lists
+*********************************************************/
+.list {
+  margin: 3rem 0;
+
+  &--inline {
+    @extend .utility__clearfix;
+
+    & > li {
+      float: left;
+      margin-right: 5rem;
+
+      &:last-of-type {
+        margin-right: 0;
+      }
+    }
+  }
+
+  &--unstyled {
+    padding: 0;
+    list-style: none;
+  }
+}
+
+dl {
+  & dt {
+    font-weight: 600;
+  }
+
+  & dd {
+    margin: 0;
+  }
+}

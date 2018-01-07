@@ -1,0 +1,32 @@
+/*********************************************************
+    Tables
+*********************************************************/
+.table {
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+
+  & th {
+    padding: .8rem;
+    font-weight: 600;
+    border-bottom: .2rem solid rgba($color__text, .25);
+    vertical-align: bottom;
+  }
+
+  & td {
+    padding: .8rem;
+    border-top: 1px solid rgba($color__text, .25);
+  }
+
+  &--striped {
+    & tbody tr:nth-of-type(odd) {
+      background-color: rgba(0, 0, 0, .03);
+    }
+  }
+
+  &--hover {
+    & tbody tr:hover {
+      background-color: rgba(0, 0, 0, .06);
+    }
+  }
+}

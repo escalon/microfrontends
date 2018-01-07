@@ -1,0 +1,29 @@
+/*********************************************************
+    Base
+*********************************************************/
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $font__sans-serif;
+  font-size: $font__base-font-size;
+  line-height: $font__base-line-height;
+  color: $color__text;
+  -webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*:after,
+*:before {
+  box-sizing: inherit;
+}
+
+.container {
+  position: relative;
+  max-width: $container__width;
+  margin: 0 auto;
+  padding: 0 $container__padding;
+}

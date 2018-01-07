@@ -1,0 +1,18 @@
+/*********************************************************
+    Print
+*********************************************************/
+@media print {
+  body {
+    -webkit-print-color-adjust: exact;
+  }
+
+  a[href^="http://"]:after,
+  a[href^="https://"]:after,
+  a[href^="www."]:after {
+    content: " (" attr(href) ")";
+  }
+
+  a[href^="#"]:after {
+    display: none;
+  }
+}

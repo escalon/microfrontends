@@ -1,0 +1,13 @@
+/*********************************************************
+    Links
+*********************************************************/
+a {
+  text-decoration: none;
+  color: $color__primary;
+  border-bottom: .2rem solid rgba($color__primary, .35);
+
+  &:hover {
+    color: $color__primary--dark;
+    border-bottom-color: rgba($color__primary--dark, 1);
+  }
+}

@@ -1,0 +1,39 @@
+/*********************************************************
+    Colors
+*********************************************************/
+$color__primary: #19e2b5;
+$color__primary--dark: darken($color__primary, 20%);
+$color__primary--light: lighten($color__primary, 35%);
+
+$color__text: #626979;
+$color__text--black: #000;
+$color__text--white: #fff;
+$color__text--dark: darken($color__text, 20%);
+$color__text--light: lighten($color__text, 20%);
+
+$color__background--highlight: #fdf72e;
+
+$color__border--input: #cbccd0;
+$color__border--success: #4cb77a;
+$color__border--error: #e25c48;
+
+/*********************************************************
+    Typography
+*********************************************************/
+$font__sans-serif: 'Source Sans Pro', sans-serif;
+$font__monospace: 'Monaco', monospace;
+$font__base-font-size: 1.5rem;
+$font__base-line-height: 1.6;
+$font__ratio: 1.2;
+
+/*********************************************************
+    Layout
+*********************************************************/
+$container__width: 960px;
+$container__padding: 2rem;
+
+/*********************************************************
+    Responsive
+*********************************************************/
+$breakpoint__small: 425px;
+$breakpoint__medium: 768px;

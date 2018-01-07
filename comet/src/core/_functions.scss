@@ -1,0 +1,22 @@
+/*********************************************************
+    Functions
+*********************************************************/
+@function power($number, $power) {
+    $exponent: 1;
+
+    @if $power > 0 {
+        @for $i from 1 through $power {
+            $exponent: $exponent * $number;
+        }
+    } @else {
+        @for $i from $power to 0 {
+            $exponent: $exponent / $number;
+        }
+    }
+
+    @return $exponent;
+}
+
+@function font-scale($x) {  
+  @return power($font__ratio, $x) * $font__base-font-size;
+};

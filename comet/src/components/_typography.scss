@@ -1,0 +1,44 @@
+/*********************************************************
+    Typography
+*********************************************************/
+h1, h2, h3, h4, h5, h6 {
+	margin: 7rem 0 4rem 0;
+	font-weight: 300;
+	line-height: 1.2;
+	color: $color__text--black;
+}
+
+h1 {
+  font-size: font-scale(6);
+}
+
+h2 {
+  font-size: font-scale(5);
+}
+
+h3 {
+  font-size: font-scale(4);
+}
+
+h4 {
+  font-size: font-scale(3);
+}
+
+h5 {
+  font-size: font-scale(2);
+}
+
+h6 {
+  font-size: font-scale(0);
+}
+
+p {
+  margin: 0 0 3rem 0;
+}
+
+abbr,
+abbr[title] {
+	text-decoration: none;
+	border-bottom: .1rem dotted #d4d4d4;
+	cursor: help;
+}

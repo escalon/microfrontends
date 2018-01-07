@@ -1,0 +1,32 @@
+{
+  "name": "comet-css",
+  "description": "A minimal and robust BEM-style CSS toolkit.",
+  "main": "dist/comet.css",
+  "authors": [
+    "Marc Bruederlin <hello@marcbruederlin.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "css",
+    "framework",
+    "toolkit",
+    "sass",
+    "mobile",
+    "responsive",
+    "flexbox",
+    "css3",
+    "css",
+    "bem",
+    "components",
+    "modular"
+  ],
+  "homepage": "https://github.com/marcbruederlin/comet",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "demo"
+  ]
+}

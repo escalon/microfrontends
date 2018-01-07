@@ -1,0 +1,17 @@
+/*********************************************************
+    Codes
+*********************************************************/
+.code {
+	font-family: $font__monospace;
+  font-size: font-scale(-1);
+
+	&--background {
+    padding: .5rem 1rem;
+		background: rgba(0, 0, 0, .05);
+	}
+
+  &--highlight {
+    padding: .5rem 1rem;
+    border-left: .2rem solid $color__primary;
+  }
+}

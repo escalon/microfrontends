@@ -28,6 +28,7 @@
     "cache": false
   },
   "devDependencies": {
+    "node-sass": "^4.7.2",
     "npm-run-parallel": "^0.6.0"
   }
 }

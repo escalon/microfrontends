@@ -1,0 +1,28 @@
+/*********************************************************
+    Position utility
+*********************************************************/
+.utility {
+  &__pos {
+    &--center {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    &--left {
+      margin-left: 0;
+      margin-right: auto;
+    }
+
+    &--right {
+      margin-left: auto;
+      margin-right: 0;
+    }
+    
+    &--center-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+}

@@ -15,10 +15,18 @@
     }
 </script>
 
-<style>
-    button.cartStatus {
-        float: right;
-        font-size: 2rem;
-        border-bottom: none;
+<style type="text/scss">
+    @import 'comet';
+
+    button {
+        &.cartStatus {
+            font-size: 2rem;
+            /*border-bottom: none;*/
+        }
+        &.button--clear:focus {
+            background-color: transparent;
+            border-color: transparent;
+            color: $color__primary--dark;
+        }
     }
 </style>

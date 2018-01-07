@@ -3,6 +3,7 @@ import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import replace from 'rollup-plugin-replace';
 import buble from 'rollup-plugin-buble';
+import sass from 'node-sass';
 
 const pkg = require('./package.json');
 
@@ -24,7 +25,28 @@ function plugins() {
     return [
         svelte({
             hydratable: true,
-            store: true
+            store: true,
+            preprocess: {
+                style: ({ content, attributes }) => {
+                    if (attributes.type !== 'text/scss') return;
+
+                    return new Promise((fulfil, reject) => {
+                        sass.render({
+                            data: content,
+                            includePaths: ['../comet/src'],
+                            sourceMap: true,
+                            outFile: 'x' // this is necessary, but is ignored
+                        }, (err, result) => {
+                            if (err) return reject(err);
+
+                            fulfil({
+                                code: result.css.toString(),
+                                map: result.map.toString()
+                            });
+                        });
+                    });
+                }
+            }
         }),
         buble(),
         // buble({transforms: {classes: false}})
@@ -36,7 +58,28 @@ function pluginsWebComponent() {
         svelte({
             hydratable: true,
             store: true,
-            customElement: true
+            customElement: true,
+            preprocess: {
+                style: ({ content, attributes }) => {
+                    if (attributes.type !== 'text/scss') return;
+
+                    return new Promise((fulfil, reject) => {
+                        sass.render({
+                            data: content,
+                            includePaths: ['components'],
+                            sourceMap: true,
+                            outFile: 'x' // this is necessary, but is ignored
+                        }, (err, result) => {
+                            if (err) return reject(err);
+
+                            fulfil({
+                                code: result.css.toString(),
+                                map: result.map.toString()
+                            });
+                        });
+                    });
+                }
+            }
         }),
         buble(),
         buble({transforms: {classes: false}})
