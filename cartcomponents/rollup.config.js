@@ -3,6 +3,7 @@ import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import replace from 'rollup-plugin-replace';
 import buble from 'rollup-plugin-buble';
+import uglify from 'rollup-plugin-uglify';
 import sass from 'node-sass';
 
 const pkg = require('./package.json');
@@ -26,6 +27,7 @@ function plugins() {
         svelte({
             hydratable: true,
             store: true,
+            cascade: false, // remove unused css
             preprocess: {
                 style: ({ content, attributes }) => {
                     if (attributes.type !== 'text/scss') return;
@@ -49,7 +51,7 @@ function plugins() {
             }
         }),
         buble(),
-        // buble({transforms: {classes: false}})
+        uglify()
     ]
 }
 

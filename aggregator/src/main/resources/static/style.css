@@ -7,11 +7,6 @@ h1, h2, h3, h4, h5, h6 {
     margin: 3rem 0 1rem;
 }
 
-.button {
-    font-size: 1.3rem;
-    font-weight: 600;
-}
-
 button.button--clear:focus {
     background-color: transparent;
     border-color: transparent;

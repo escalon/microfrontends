@@ -1,6 +1,6 @@
 <div class="backendChoiceAction">
     {{#if status === 'idle'}}
-    <button class="button button--clear button--small" on:click="set({status: 'choice'})">Choose backend</button>
+    <button class="button button--clear button--large" on:click="set({status: 'choice'})">Choose backend</button>
     {{elseif status === 'choice'}}
     <Modal title="Choose backend" on:modaldone="set({'status': 'idle'})">
         <p><select>

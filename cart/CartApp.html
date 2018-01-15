@@ -17,6 +17,7 @@
 <script>
     // import NavLink from 'svelte-routing/NavLink.html';
     // import Route from 'svelte-routing/Route.html';
+    import 'core-js/es6/array';
     import Cart from 'cartcomponents/Cart.html';
     import CartStatus from 'cartcomponents/CartStatus.html';
     import store from 'cartcomponents/store.js'
@@ -39,9 +40,7 @@
                 this.set({iconized: !this.get('iconized')});
             }
         },
-        store: () => {
-           return store
-        },
+        store: () => store,
         tag: 'cart-app'
     };
 </script>

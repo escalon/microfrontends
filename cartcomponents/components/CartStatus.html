@@ -1,4 +1,4 @@
-<button class="cartStatus button button--clear utility__float--right" on:click="fire('cartToggled')" >{{itemCount}} item{{itemCount == 1? '': 's'}} &#x1F6D2;</button>
+<button class="cartStatus button button--clear utility__float--right" on:click="fire('cartToggled')" >{{itemCount}} item{{itemCount == 1? '': 's'}} <span class="fas fa-shopping-cart"></span></button>
 <script>
     export default {
         computed: {
@@ -18,7 +18,7 @@
 <style type="text/scss">
     @import 'comet';
 
-    button {
+    .button {
         &.cartStatus {
             font-size: 2rem;
             /*border-bottom: none;*/
