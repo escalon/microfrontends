@@ -23,7 +23,7 @@ The overall infrastructure to deliver the microfrontends is made up of Spring bo
 Svelte components can be assembled from other components. They can use `{{#if ..condition}}` tags to decide which components should be chosen dynamically.
 
 === Aggregation
-Pages are aggregated from multiple sources and they contain several microfrontends. An aggregator can sit in front of a content management system where it retrieves a site navigation menu, footer etc., but a CMS can also play the role of the aggregator itself.
+In a microfrontend architecture pages are aggregated from multiple sources and they contain several microfrontends. An aggregator can sit in front of a content management system where it retrieves a site navigation menu, footer etc., but a CMS can also play the role of the aggregator itself.
 
 Aggregation can happen in the backend or on the client. Aggregation in the backend means that the markup of html pages is assembled during delivery. Aggregation in the client means that the browser transcludes markup much like it transcludes images in html pages: The browser fetches parts of the page asynchronously and shows them when they are ready.
 
@@ -33,9 +33,9 @@ You can use a template engine that is able to retrieve html and place it into th
 
 TODO: Also see http://nginx.org/en/docs/http/ngx_http_ssi_module.html.
 
-For declarative client-side inclusion you can use a web component like https://github.com/gustafnk/h-include[h-include.js] by https://github.com/gustafnk/[@gustafnk] or the pre-web-component https://github.com/mnot/hinclude[hinclude] by https://github.com/mnot/[@mnot].
+For declarative client-side transclusion of markup you can use a web component like https://github.com/gustafnk/h-include[h-include.js] by https://github.com/gustafnk/[@gustafnk] or the pre-web-component https://github.com/mnot/hinclude[hinclude] by https://github.com/mnot/[@mnot].
 
-The aggregator service in this project uses a template-engine (Thymeleaf) to aggregate the backend part of the page, and it also demonstrates client-side aggregation using https://github.com/gustafnk/h-include[h-include.js].
+The aggregator service in this project uses a template-engine (Thymeleaf) to aggregate the backend part of the page, and /TODO/ it also demonstrates client-side aggregation using https://github.com/gustafnk/h-include[h-include.js].
 
 === No-framework Javascript
 "Disappearing" frameworks like Svelte.js or Stencil.js allow to have no framework library in the page, instead relying on standard Javascript (with polyfills for older browsers).
@@ -47,11 +47,13 @@ No-framework microfrontends can both be added *alongside* a classic framework ap
 === Server Side Rendering
 While it is possible to deliver an SPA by just including some bootstrapping element on the page and letting Javascript handle the markup, Server Side Rendering (SSR) is preferable because the initial page is complete from the start and it is not necessary to wait for Javascript to fill the DOM.
 
+Be wary with caching when delivering personalized content in your html. You must not deliver a page containing sensitive data if it has a non-personalized URL, even if you cache only static parts in your system and assemble them immediately before delivery. You have no control over caches between your site and the user's browser and you cannot prevent some proxy or a browser to deliver cached content for a user who was not the original recipient if the same URL produces different content for different users.
+
 To make this work in svelte.js, you need to register the svelte compiler in the server application. It will compile any imported component so that it gets a `render(data)` method which is used to render the component with the given data; then use the result to build the server response.
 
 Next, tell the component in the browser that it should *hydrate* the pre-rendered markup, i.e. instead of creating the markup in the DOM from scratch it should adopt the markup it encounters.
 
-Using Svelte Store is possible with SSR. Enable store using the SSR option `store: true` when registering and pass the store to the `render()` method. The `html` attribute of the resulting object contains the markup as string.
+Using Svelte Store is possible with SSR. You can enable the store using the SSR option `store: true` when registering the component and pass the store to the `render()` method as shown below.
 
 .server.js
 [source, javascript]
@@ -64,14 +66,33 @@ const store = new Store({items: []});
 server.get('/cart/', function(req, res) {
     res.write(`
     <!DOCTYPE html>
-    <div id="cart">${app.render({}, {store}).html}</div>
+    <div id="cart">${app.render({}, {store})}</div>
     <script src="/cart/bundle.js"></script>
   `);
     res.end();
 });
 ----
-That allows you to render components which make use of Svelte store in the browser.
+As an alternative, a component can define declaratively that it needs the store, so that an app need not know that its components require a store internally. For an example see _AddToCart.html_ and _store.js_ in cartcomponent.
 
+.AddToCart.html
+[source, javascript]
+----
+import store from '../store.js' // provides a global store instance bound to sessionstorage
+export default {
+    store: () => store,
+    tag: 'add-to-cart'
+}
+----
+
+That allows you to render components on the server which also make use of Svelte store in the browser.
+
+=== Remove unused css
+
+The Svelte compiler removes unused css if you configure it not to cascade styles of a component to child components. That makes it easy for the compiler to decide whether or not a rule is used by a component.
+
+It also supports processing of css, e.g. with postcss or a sass or less compiler.
+
+The project shows how Svelte removes unused styles from a larger css system. You can import the style system into your component and let Svelte figure out which parts are actually relevant for the component. See the style tag of _CartStatus.html_ for an example.
 
 === Exporting Components
 In order to export a component, add a `name` property to the rollup configuration which becomes the namespace for all exported components:
@@ -304,8 +325,6 @@ IMPORTANT: On Windows 10 it is necessary to run docker-compose in a *standalone 
 . in action launchpad: product conditions -> action type, e.g. if product.domain then EmailAction
 
 * let each panel retrieve its own data both in SSR and browser when activated - performance issue?
-
-* Use scss
 
 * styling concepts
 ** Master style vs. no master style.

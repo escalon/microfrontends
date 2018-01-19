@@ -1,6 +1,6 @@
 <div class="emailAction">
     {{#if status === 'idle'}}
-    <button class="button button--clear button--small" on:click="set({status: 'accountList'})">Manage Email Accounts</button>
+    <button class="button button--clear button--large" on:click="set({status: 'accountList'})">Manage Email Accounts</button>
     {{elseif status === 'accountList'}}
     <Modal title="Manage Email Accounts" on:modaldone="set({'status': 'idle'})">
         <table width="50%">
@@ -18,7 +18,7 @@
         <form class="form">
             <label class="form__label" for="username">Username: </label>
             <input id="newAccount" type="text"
-                class="newAccount form__input{{errorOrSuccessClass}}"
+                class="new-account form__input{{errorOrSuccessClass}}"
                 title="{{errorMessage}}"
                 bind:value='newAccount'
                 on:keyup="validate(event.target)" placeholder='user name'/>
@@ -87,8 +87,9 @@
     }
 </script>
 
-<style>
-    input.newAccount {
+<style type="text/scss">
+    @import 'comet';
+    .form__input.new-account {
         width: 50%
     }
     table {

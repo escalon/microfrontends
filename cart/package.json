@@ -1,6 +1,7 @@
 {
   "main": "dist/cart/bundle.js",
-  "cc": "dist/cart/bundle.cc.js",
+  "ce": "dist/cart/bundle.ce.js",
+  "noclassce": "dist/cart/bundle.noclassce.js",
   "scripts": {
     "watch": "rollup -c --watch",
     "build": "rollup -c",
@@ -29,6 +30,7 @@
   },
   "devDependencies": {
     "node-sass": "^4.7.2",
-    "npm-run-parallel": "^0.6.0"
+    "npm-run-parallel": "^0.6.0",
+    "rollup-plugin-uglify": "^2.0.1"
   }
 }

@@ -1,23 +1,6 @@
 <h3>{{product.name}}</h3>
 
-{{#if product.name==='Domain'}}
-<DescDomain :product></DescDomain>
-{{elseif product.name==='Hosting'}}
-<DescHosting :product></DescHosting>
-{{elseif product.name==='DSL'}}
-<DescDsl :product></DescDsl>
-{{elseif product.name==='LTE'}}
-<DescLte :product></DescLte>
-{{elseif product.name==='Office as a Service'}}
-<DescOaas :product></DescOaas>
-{{elseif product.name==='Cloud Storage'}}
-<DescCloudStorage :product></DescCloudStorage>
-{{else}}
-{{#each Object.keys(product).filter(key => key !== 'name') as key}}
-<div>{{key}}: {{product[key]}}</div>
-{{/each}}
-{{/if}}
-
+<:Component {widgets[product.widget]} :product></:Component>
 
 <script>
     import DescDomain from './DescDomain.html';
@@ -35,7 +18,19 @@
             DescLte,
             DescOaas,
             DescCloudStorage
-        }
+        },
+        data() {
+            return {
 
+                widgets:  {
+                    DescDomain,
+                    DescHosting,
+                    DescDsl,
+                    DescLte,
+                    DescOaas,
+                    DescCloudStorage
+                }
+            }
+        }
     };
 </script>

@@ -4,6 +4,7 @@ import commonjs from 'rollup-plugin-commonjs';
 import replace from 'rollup-plugin-replace';
 import livereload from 'rollup-plugin-livereload';
 import buble from 'rollup-plugin-buble';
+import uglify from 'rollup-plugin-uglify';
 import sass from 'node-sass';
 
 const pkg = require('./package.json');
@@ -43,11 +44,6 @@ export default [
                     }
                 },
                 // css: function (css) {
-                //     console.log(css.code); // the concatenated CSS
-                //     console.log(css.map); // a sourcemap
-                //
-                //     // creates `main.css` and `main.css.map` — pass `false`
-                //     // as the second argument if you don't want the sourcemap
                 //     css.write('dist/main.css');
                 // }
             }),
@@ -55,6 +51,7 @@ export default [
             commonjs(),
             replace({'process.env.NODE_ENV': '"production"'}),
             buble(),
+            // uglify()
         ]
     },
     {
@@ -94,21 +91,15 @@ export default [
                 },
             }),
             resolve(),
-            // resolve({
-            //     jsnext: true,
-            //     main: true,
-            //     browser: true
-            // }),
             commonjs(),
             replace({'process.env.NODE_ENV': '"production"'}),
             buble(),
-            // buble({transforms: {classes: false}})
         ]
     },
     {
         input: 'main.js',
         output: {
-            file: pkg.cc,
+            file: pkg.ce,
             format: 'iife',
             store: true,
             sourcemap: true
@@ -148,5 +139,46 @@ export default [
             // livereload({watch: 'dist', port: 35731})
         ]
     },
+    {
+        input: 'main.js',
+        output: {
+            file: pkg.noclassce,
+            format: 'iife',
+            store: true,
+            sourcemap: true
+        },
+        plugins: [
+            svelte({
+                hydratable: true,
+                store: true,
+                customElement: true,
+                cascade: false,
+                preprocess: {
+                    style: ({ content, attributes }) => {
+                        if (attributes.type !== 'text/scss') return;
 
+                        return new Promise((fulfil, reject) => {
+                            sass.render({
+                                data: content,
+                                includePaths: ['../comet/src'],
+                                sourceMap: true,
+                                outFile: 'x' // this is necessary, but is ignored
+                            }, (err, result) => {
+                                if (err) return reject(err);
+
+                                fulfil({
+                                    code: result.css.toString(),
+                                    map: result.map.toString()
+                                });
+                            });
+                        });
+                    }
+                }
+            }),
+            resolve(),
+            commonjs(),
+            replace({'process.env.NODE_ENV': '"production"'}),
+            buble()
+        ]
+    }
 ];
