@@ -4,6 +4,7 @@ import commonjs from 'rollup-plugin-commonjs';
 import replace from 'rollup-plugin-replace';
 import livereload from 'rollup-plugin-livereload';
 import buble from 'rollup-plugin-buble';
+import sass from 'node-sass';
 
 const pkg = require('./package.json');
 
@@ -22,8 +23,29 @@ export default [
         plugins: [
             svelte({
                 hydratable: true,
-                store: true
-                //customElement: true
+                store: true,
+                cascade: false,
+                preprocess: {
+                    style: ({ content, attributes }) => {
+                        if (attributes.type !== 'text/scss') return;
+
+                        return new Promise((fulfil, reject) => {
+                            sass.render({
+                                data: content,
+                                includePaths: ['../comet/src'],
+                                sourceMap: true,
+                                outFile: 'x' // this is necessary, but is ignored
+                            }, (err, result) => {
+                                if (err) return reject(err);
+
+                                fulfil({
+                                    code: result.css.toString(),
+                                    map: result.map.toString()
+                                });
+                            });
+                        });
+                    }
+                }
             }),
             resolve({
                 jsnext: true,
