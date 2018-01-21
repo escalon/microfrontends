@@ -30,12 +30,16 @@
 
     export default {
         components: {
-            PromoDomain,
-            PromoHosting,
-            PromoDsl,
             PromoLte,
             PromoOaas,
             PromoCloudStorage
+        },
+        data() {
+            return {widgets: {
+                    PromoLte,
+                    PromoOaas,
+                    PromoCloudStorage
+                }};
         }
 
     };

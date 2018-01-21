@@ -20,7 +20,7 @@ The overall infrastructure to deliver the microfrontends is made up of Spring bo
 * order-service (microservice for orders, TODO: currently unused)
 
 === Component Assembly
-Svelte components can be assembled from other components. They can use `{{#if ..condition}}` tags to decide which components should be chosen dynamically.
+Svelte components can be assembled from other components. They can use `{{#if ..condition}}` tags to decide which components should be chosen.
 
 === Aggregation
 In a microfrontend architecture pages are aggregated from multiple sources and they contain several microfrontends. An aggregator can sit in front of a content management system where it retrieves a site navigation menu, footer etc., but a CMS can also play the role of the aggregator itself.
@@ -88,7 +88,7 @@ That allows you to render components on the server which also make use of Svelte
 
 === Remove unused css
 
-The Svelte compiler removes unused css if you configure it not to cascade styles of a component to child components. That makes it easy for the compiler to decide whether or not a rule is used by a component.
+The Svelte compiler removes unused css if you configure it not to cascade styles of a component to child components. That makes it easy for the compiler to decide whether or not a rule is used by a component, since it knows its possible states.
 
 It also supports processing of css, e.g. with postcss or a sass or less compiler.
 
@@ -126,7 +126,7 @@ export default {
 
 ----
 
-To allow Svelte applications to import the component in uncompiled form so that they can be built with the compiler version matching that application, either add a `svelte` property for a single exported component to _package.json_:
+To allow Svelte applications to import the component in uncompiled form so that they can be built with the compiler version matching that application, either add a `svelte` property for a _single_ exported component to _package.json_:
 
 .package.json
 [source, javascript]
@@ -140,7 +140,7 @@ To allow Svelte applications to import the component in uncompiled form so that 
 <1> name of the package for imports
 <2> _MyComponent.html_ in the _/src_ folder becomes importable as `import MyComponent from 'singlecomponent'`
 
-or a 'svelte.root' property for multiple exported components:
+or a 'svelte.root' property for _multiple_ exported components:
 
 .package.json
 [source, javascript]
@@ -169,6 +169,8 @@ If you pick up the external component from the page, the external component can 
 *Bundling* an external component is simple: add the package to _package.json_ so that it will be imported from _node_modules_, make sure the build finds the component there (e.g. by adding the `rollup-plugin-resolve` plugin to your _rollup.config.js_) and write an import statement in your component as usual that references the component in the external package.
 
     import ExternalComponent from 'othercomponent/ExternalComponent.html'
+
+The other component should possibly provide a pkg.svelte or pkg['svelte.root'] entry in its package.json. That allows to bundle it by recompiling the raw component file. When compiling components from other packages that contain styles that need to be preprocessed, e.g. sass, it will be necessary to add the required preprocessor to your build.
 
 ==== As External Dependency
 

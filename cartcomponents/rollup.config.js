@@ -51,7 +51,7 @@ function plugins() {
             }
         }),
         buble(),
-        uglify()
+        //uglify()
     ]
 }
 
