@@ -19,9 +19,6 @@ The overall infrastructure to deliver the microfrontends is made up of Spring bo
 * zuul (makes all parts available to the browser from the same host)
 * order-service (microservice for orders, TODO: currently unused)
 
-=== Component Assembly
-Svelte components can be assembled from other components. They can use `{{#if ..condition}}` tags to decide which components should be chosen.
-
 === Aggregation
 In a microfrontend architecture pages are aggregated from multiple sources and they contain several microfrontends. An aggregator can sit in front of a content management system where it retrieves a site navigation menu, footer etc., but a CMS can also play the role of the aggregator itself.
 
@@ -29,7 +26,7 @@ Aggregation can happen in the backend or on the client. Aggregation in the backe
 
 There are various technologies and tools which can be used for this kind of aggregation.
 
-You can use a template engine that is able to retrieve html and place it into the page (for Java jsp or the more modern Thymeleaf), or you can set up https://www.nginx.com/blog/benefits-of-microcaching-nginx/[microcaching (TODO)] or even edge side inclusion (http://www.globaldots.com/edge-side-includes-esi-complete-overview/[ESI]) to assemble the html page which will be delivered to the browser.
+You can use a template engine that is able to retrieve html and place it into the page (e.g. for Java jsp or the more modern Thymeleaf), or you can set up https://www.nginx.com/blog/benefits-of-microcaching-nginx/[microcaching (TODO)] or even edge side inclusion (http://www.globaldots.com/edge-side-includes-esi-complete-overview/[ESI]) to assemble the html page which will be delivered to the browser.
 
 TODO: Also see http://nginx.org/en/docs/http/ngx_http_ssi_module.html.
 
@@ -40,18 +37,21 @@ The aggregator service in this project uses a template-engine (Thymeleaf) to agg
 === No-framework Javascript
 "Disappearing" frameworks like Svelte.js or Stencil.js allow to have no framework library in the page, instead relying on standard Javascript (with polyfills for older browsers).
 
-This is a major win for microfrontends because several apps by several teams, written in several disappearing frameworks, can coexist on the page without risking framework version conflicts.
+This is a major win for microfrontends because several apps by several teams, written in several disappearing frameworks, can coexist on the page without risking framework version conflicts and without incurring the overhead of several big framrworks that not only need to be downloaded, but also parsed by the browser.
 
 No-framework microfrontends can both be added *alongside* a classic framework application which dominates the page or they can be used *inside* a larger application that may or may not be written with a disappearing framework.
 
-=== Server Side Rendering
-While it is possible to deliver an SPA by just including some bootstrapping element on the page and letting Javascript handle the markup, Server Side Rendering (SSR) is preferable because the initial page is complete from the start and it is not necessary to wait for Javascript to fill the DOM.
 
-Be wary with caching when delivering personalized content in your html. You must not deliver a page containing sensitive data if it has a non-personalized URL, even if you cache only static parts in your system and assemble them immediately before delivery. You have no control over caches between your site and the user's browser and you cannot prevent some proxy or a browser to deliver cached content for a user who was not the original recipient if the same URL produces different content for different users.
+=== Server Side Rendering
+While it is possible to deliver an SPA by just including some bootstrapping element on the page and letting Javascript handle the markup, Server Side Rendering (SSR) is preferable for non-personal data because the initial page is complete from the start and it is not necessary to wait for Javascript to fill the DOM.
+
+NOTE: Be wary with caching when delivering personalized, sensitive data in your html. You must not deliver a page containing sensitive data if it has a non-personalized URL, even if you cache only static parts in your system and assemble them immediately before delivery. You have no control over caches between your site and the user's browser and you cannot prevent some proxy or a browser in an internet cafe to deliver cached content for a user who was not the original recipient, if the same URL produces different content for different users.
 
 To make this work in svelte.js, you need to register the svelte compiler in the server application. It will compile any imported component so that it gets a `render(data)` method which is used to render the component with the given data; then use the result to build the server response.
 
 Next, tell the component in the browser that it should *hydrate* the pre-rendered markup, i.e. instead of creating the markup in the DOM from scratch it should adopt the markup it encounters.
+
+==== Svelte Store with SSR
 
 Using Svelte Store is possible with SSR. You can enable the store using the SSR option `store: true` when registering the component and pass the store to the `render()` method as shown below.
 
@@ -86,7 +86,7 @@ export default {
 
 That allows you to render components on the server which also make use of Svelte store in the browser.
 
-=== Remove unused css
+=== Remove unused CSS
 
 The Svelte compiler removes unused css if you configure it not to cascade styles of a component to child components. That makes it easy for the compiler to decide whether or not a rule is used by a component, since it knows its possible states.
 
@@ -201,8 +201,6 @@ Your application's bundling configuration must be told that it should not try to
 === Using Svelte Component in SSR
 
 Requires a commonjs bundle of the application.
-
-TODO: verify how external and bundled components are pulled in
 
 === Svelte Components as Custom Elements
 Add a `tag` property to each component you want to use as custom-element and assign a kebab-case tag name with at least one hyphen in it.
