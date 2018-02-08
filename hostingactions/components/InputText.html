@@ -1,0 +1,67 @@
+<div class="c-textfield js-floating">
+    <input bind:value="value" placeholder='{{placeholder}}' id="{{id}}"
+           class="{{errorClass(errors, binding)}}"
+           on:change="validateSingle(event.target)" on:input="removeErrors(event.target)"
+           data-binding="{{binding}}">
+    <label for="{{id}}" class="">
+        <span class="c-textinput__label--optional"></span>
+        {{label}}
+    </label>
+    <p class=""></p>
+    <span> {{errorMessage(errors, binding)}}</span>
+</div>
+<script>
+	import validate from 'validate.js';
+	validate.validators.presence.options = {message: "is required"};
+
+	validate.options = {
+		fullMessages: false, prettify: function (s) {
+			return s;
+		}
+	};
+
+	export default {
+		helpers: {
+			errorClass(errors, binding) {
+				return ` ${errors[binding] ? 'invalid' : 'valid'}`;
+			},
+			errorMessage(errors, binding) {
+				return errors[binding] ? errors[binding][0] : '';
+			}
+		},
+		methods: {
+			validate,
+			validateSingle(target, removeErrorsOnly) {
+				let binding = target.getAttribute('data-binding') || '';
+				const {constraints} = this.get();
+				const result = validate.single(target.value, constraints[binding]);
+				if(removeErrorsOnly && result) {
+					return;
+				}
+				const errors = this.get('errors');
+				errors[binding] = result;
+				this.set({errors});
+			},
+			removeErrors(target) {
+				this.validateSingle(target, true);
+			}
+		},
+		data() {
+			return {
+				id: undefined,
+                label: '',
+				binding: '',
+                value: '',
+                placeholder: '',
+				constraints: {},
+				errors: {}
+			}
+		}
+	}
+
+</script>
+<style>
+    .invalid {
+        border-color: #d60000;
+    }
+</style>
