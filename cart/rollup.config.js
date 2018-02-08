@@ -22,8 +22,15 @@ export default [
                 hydratable: true,
                 store: true,
                 cascade: false,
+                onwarn: function (warning, defaultHandler) {
+                    if (warning.message === "Unused CSS selector") {
+                        // suppress
+                    } else {
+                        defaultHandler(warning);
+                    }
+                },
                 preprocess: {
-                    style: ({ content, attributes }) => {
+                    style: ({content, attributes}) => {
                         if (attributes.type !== 'text/scss') return;
 
                         return new Promise((fulfil, reject) => {
@@ -68,8 +75,15 @@ export default [
                 store: true,
                 generate: 'ssr',
                 cascade: false,
+                onwarn: function (warning, defaultHandler) {
+                    if (warning.message === "Unused CSS selector") {
+                        // suppress
+                    } else {
+                        defaultHandler(warning);
+                    }
+                },
                 preprocess: {
-                    style: ({ content, attributes }) => {
+                    style: ({content, attributes}) => {
                         if (attributes.type !== 'text/scss') return;
 
                         return new Promise((fulfil, reject) => {
@@ -110,8 +124,15 @@ export default [
                 store: true,
                 customElement: true,
                 cascade: false,
+                onwarn: function (warning, defaultHandler) {
+                    if (warning.message === "Unused CSS selector") {
+                        // suppress
+                    } else {
+                        defaultHandler(warning);
+                    }
+                },
                 preprocess: {
-                    style: ({ content, attributes }) => {
+                    style: ({content, attributes}) => {
                         if (attributes.type !== 'text/scss') return;
 
                         return new Promise((fulfil, reject) => {
@@ -153,8 +174,15 @@ export default [
                 store: true,
                 customElement: true,
                 cascade: false,
+                onwarn: function (warning, defaultHandler) {
+                    if (warning.message === "Unused CSS selector") {
+                        // suppress
+                    } else {
+                        defaultHandler(warning);
+                    }
+                },
                 preprocess: {
-                    style: ({ content, attributes }) => {
+                    style: ({content, attributes}) => {
                         if (attributes.type !== 'text/scss') return;
 
                         return new Promise((fulfil, reject) => {
