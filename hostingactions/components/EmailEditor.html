@@ -16,19 +16,15 @@
                        constraints="{{constraints}}"
             />
         </div>
-        <!-- TODO: validate before submit -->
+        <!-- TODO: style error messages in InputText, not .valid from the start -->
         <div class="grid__col grid__col--12">
-            <button type="button"
-                    class="button button--outline"
+            <button type="button" class="button button--outline"
                     on:click="fire('cancel')">
-                    Cancel
+                Cancel
             </button>
-            <button type="button"
-                    disabled="{{!account.userName || Object.keys(errors).length !== 0}}"
-                    title="{{errorMessage}}"
-                    class="button"
-                    on:click="fire('ok', {account})">
-                    {{confirmLabel}}
+            <button type="button" class="button"
+                    on:click="finish()">
+                {{confirmLabel}}
             </button>
         </div>
     </div>
@@ -42,22 +38,14 @@
             InputText
         },
         methods: {
-            // TODO make errors a computed?
-            validate(target, suffix = '') {
-                const value = target.value;
-                const attribute = target.id;
-                // const value = this.get(attribute);
-                const toValidate = `${value}${suffix}`;
-                const errors = validate.single(toValidate, constraints[attribute]);
-                if (value && errors) {
-                    this.set({'errors': {[attribute]: errors}}); // ES6: computed key
-                } else {
-                    this.set({'errors': {}});
-                }
-            },
             finish() {
-                const {account} = this.get();
-                this.fire('ok', {account});
+                const {account, constraints} = this.get();
+                const errors = validate({account}, constraints);
+                if (errors) {
+                    this.set({errors});
+                } else {
+                    this.fire('ok', {account});
+                }
             }
         },
         data() {
@@ -69,7 +57,7 @@
                     displayName: ''
                 },
                 confirmLabel: 'OK',
-                constraints : {
+                constraints: {
                     'account.userName': {
                         format: {
                             pattern: '[A-Z0-9._%+-]+',
@@ -77,7 +65,9 @@
                         }
                     },
                     'account.displayName': {
-                        presence: true
+                        presence: {
+                            allowEmpty: false
+                        }
                     }
                 },
                 errors: {}
