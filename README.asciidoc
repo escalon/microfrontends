@@ -126,7 +126,7 @@ export default {
 
 ----
 
-To allow Svelte applications to import the component in uncompiled form so that they can be built with the compiler version matching that application, either add a `svelte` property for a _single_ exported component to _package.json_:
+To allow Svelte applications to import the component in *uncompiled form* so that they can be built with the compiler version matching that application, either add a `svelte` property for a _single_ exported component to _package.json_:
 
 .package.json
 [source, javascript]
@@ -170,7 +170,8 @@ If you pick up the external component from the page, the external component can 
 
     import ExternalComponent from 'othercomponent/ExternalComponent.html'
 
-The other component should possibly provide a pkg.svelte or pkg['svelte.root'] entry in its package.json. That allows to bundle it by recompiling the raw component file. When compiling components from other packages that contain styles that need to be preprocessed, e.g. sass, it will be necessary to add the required preprocessor to your build.
+NOTE: If the external component package has a `pkg.svelte` or `pkg['svelte.root']` entry, the compiler will use the raw html file of the external component for compilation, see <<exporting-components>>. Therefore it is strongly recommended that packages which export components define such an entry. Otherwise the external component will be used in compiled form, which introduces a certain risk of Svelte version conflicts.
+When compiling components from other packages containing styles that need to be preprocessed, e.g. with sass, it is necessary to add the required preprocessor to your build.
 
 ==== As External Dependency
 

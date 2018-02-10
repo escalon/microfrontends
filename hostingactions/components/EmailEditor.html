@@ -1,0 +1,95 @@
+<form class="form">
+    <div class="grid form__rows">
+        <div class="grid__col grid__col--12">
+            <InputText id="userName" label="New email address"
+                       binding="account.userName"
+                       bind:value="account.userName"
+                       bind:errors="errors"
+                       constraints="{{constraints}}"
+            />
+        </div>
+        <div class="grid__col grid__col--12">
+            <InputText id="displayName" label="Display name"
+                       binding="account.displayName"
+                       bind:value="account.displayName"
+                       bind:errors="errors"
+                       constraints="{{constraints}}"
+            />
+        </div>
+        <!-- TODO: validate before submit -->
+        <div class="grid__col grid__col--12">
+            <button type="button"
+                    class="button button--outline"
+                    on:click="fire('cancel')">
+                    Cancel
+            </button>
+            <button type="button"
+                    disabled="{{!account.userName || Object.keys(errors).length !== 0}}"
+                    title="{{errorMessage}}"
+                    class="button"
+                    on:click="fire('ok', {account})">
+                    {{confirmLabel}}
+            </button>
+        </div>
+    </div>
+</form>
+<script>
+    import validate from 'validate.js';
+    import InputText from './InputText.html';
+
+    export default {
+        components: {
+            InputText
+        },
+        methods: {
+            // TODO make errors a computed?
+            validate(target, suffix = '') {
+                const value = target.value;
+                const attribute = target.id;
+                // const value = this.get(attribute);
+                const toValidate = `${value}${suffix}`;
+                const errors = validate.single(toValidate, constraints[attribute]);
+                if (value && errors) {
+                    this.set({'errors': {[attribute]: errors}}); // ES6: computed key
+                } else {
+                    this.set({'errors': {}});
+                }
+            },
+            finish() {
+                const {account} = this.get();
+                this.fire('ok', {account});
+            }
+        },
+        data() {
+            return {
+                domain: '',
+                account: {
+                    index: -1,
+                    userName: '',
+                    displayName: ''
+                },
+                confirmLabel: 'OK',
+                constraints : {
+                    'account.userName': {
+                        format: {
+                            pattern: '[A-Z0-9._%+-]+',
+                            flags: 'i' // ignore case
+                        }
+                    },
+                    'account.displayName': {
+                        presence: true
+                    }
+                },
+                errors: {}
+            }
+        }
+    }
+</script>
+
+<style type="text/scss">
+    @import 'comet';
+
+    .form__rows {
+        align-items: center;
+    }
+</style>

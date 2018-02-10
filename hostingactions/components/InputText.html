@@ -1,67 +1,65 @@
-<div class="c-textfield js-floating">
-    <input bind:value="value" placeholder='{{placeholder}}' id="{{id}}"
-           class="{{errorClass(errors, binding)}}"
-           on:change="validateSingle(event.target)" on:input="removeErrors(event.target)"
-           data-binding="{{binding}}">
-    <label for="{{id}}" class="">
-        <span class="c-textinput__label--optional"></span>
-        {{label}}
-    </label>
-    <p class=""></p>
-    <span> {{errorMessage(errors, binding)}}</span>
-</div>
+<label for="{{id}}" class="form__label">
+    {{label}}
+</label>
+<input bind:value="value" placeholder='{{placeholder}}' id="{{id}}"
+       type="text"
+       class="form__input{{errorClass(errors, binding)}}"
+       on:change="validateSingle(event.target)" on:input="removeErrors(event.target)"
+       data-binding="{{binding}}">
+<span> {{errorMessage(errors, binding)}}</span>
 <script>
-	import validate from 'validate.js';
-	validate.validators.presence.options = {message: "is required"};
+    import validate from 'validate.js';
 
-	validate.options = {
-		fullMessages: false, prettify: function (s) {
-			return s;
-		}
-	};
+    validate.validators.presence.options = {message: "is required"};
 
-	export default {
-		helpers: {
-			errorClass(errors, binding) {
-				return ` ${errors[binding] ? 'invalid' : 'valid'}`;
-			},
-			errorMessage(errors, binding) {
-				return errors[binding] ? errors[binding][0] : '';
-			}
-		},
-		methods: {
-			validate,
-			validateSingle(target, removeErrorsOnly) {
-				let binding = target.getAttribute('data-binding') || '';
-				const {constraints} = this.get();
-				const result = validate.single(target.value, constraints[binding]);
-				if(removeErrorsOnly && result) {
-					return;
-				}
-				const errors = this.get('errors');
-				errors[binding] = result;
-				this.set({errors});
-			},
-			removeErrors(target) {
-				this.validateSingle(target, true);
-			}
-		},
-		data() {
-			return {
-				id: undefined,
+    validate.options = {
+        fullMessages: false, prettify: function (s) {
+            return s;
+        }
+    };
+
+    export default {
+        helpers: {
+            errorClass(errors, binding) {
+                return ` ${errors[binding] ? 'form__input--error' : 'form__input--success'}`;
+            },
+            errorMessage(errors, binding) {
+                return errors[binding] ? errors[binding][0] : '';
+            }
+        },
+        methods: {
+            validate,
+            validateSingle(target, removeErrorsOnly) {
+                let binding = target.getAttribute('data-binding') || '';
+                const {constraints} = this.get();
+                const result = validate.single(target.value, constraints[binding]);
+                if (removeErrorsOnly && result) {
+                    return;
+                }
+                const errors = this.get('errors');
+                errors[binding] = result;
+                this.set({errors});
+            },
+            removeErrors(target) {
+                this.validateSingle(target, true);
+            }
+        },
+        data() {
+            return {
+                id: undefined,
                 label: '',
-				binding: '',
+                binding: '',
                 value: '',
                 placeholder: '',
-				constraints: {},
-				errors: {}
-			}
-		}
-	}
+                constraints: {},
+                errors: {}
+            }
+        }
+    }
 
 </script>
-<style>
-    .invalid {
-        border-color: #d60000;
-    }
+<style type="text/scss">
+    @import 'comet';
+
+
 </style>

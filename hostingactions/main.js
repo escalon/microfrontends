@@ -5,8 +5,10 @@ const app = new HostingActionsApp({
     target: document.getElementById('hostingactions'),
     hydrate: true,
     data: {
-        product: {domain: 'huzzl.de',
-        hostingType: 'lamp'}
+        product: {
+            domain: 'huzzl.de',
+            hostingType: 'lamp'
+        }
     }
 });
 

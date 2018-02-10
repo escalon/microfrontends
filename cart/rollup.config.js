@@ -4,7 +4,6 @@ import commonjs from 'rollup-plugin-commonjs';
 import replace from 'rollup-plugin-replace';
 import livereload from 'rollup-plugin-livereload';
 import buble from 'rollup-plugin-buble';
-import uglify from 'rollup-plugin-uglify';
 import sass from 'node-sass';
 
 const pkg = require('./package.json');

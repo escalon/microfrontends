@@ -1,6 +1,6 @@
 <div id="microfrontendsModal" class="modaloverlay">
     <div class="modal">
-        <button class="close button button--clear" on:click="close()">&times;</button>
+        <button class="button--close button button--clear" on:click="close()">&times;</button>
         <div>
             <h3>{{title}}</h3>
             <slot><!-- content of Modal element here --></slot>
@@ -58,7 +58,7 @@
         }
     }
 
-    .modaloverlay .close {
+    .modaloverlay .button--close {
         cursor:pointer;
         /*background-color: turquoise;*/
         /*color: white;*/

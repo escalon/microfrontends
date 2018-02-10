@@ -16,43 +16,39 @@ server.get('/product/', function (req, res) {
             {
                 name: "Hosting",
                 domain: 'example.de',
-                hostingType: "lamp"
+                hostingType: "lamp",
+                widget: "DescHosting"
             },
             {
                 name: "Domain",
-                domain: 'example.de'
+                domain: 'example.com',
+                redirect: 'example.de',
+                widget: "DescDomain"
             },
             {
                 name: "DSL",
-                speed: "50 MBit/s"
-            },
-            {
-                name: "LTE",
-                dataAllowance: "10 GB"
-            },
-            {
-                name: "Office"
-            },
-            {
-                name: "Cloud Storage",
-                size: "250 GB"
+                speed: "50 MBit/s",
+                widget: "DescDsl"
             }
         ],
         promotions: [
             {
                 name: "Cloud Storage",
                 size: "250 GB",
-                offerPrice: 'Free'
+                offerPrice: 'Free',
+                widget: "PromoCloudStorage"
             },
             {
                 name: "LTE",
                 dataAllowance: "10 GB",
-                offerPrice: 'EUR 7.99'
+                offerPrice: 'EUR 7.99',
+                widget: "PromoLte"
             },
             {
                 name: "Office as a Service",
                 users: 5,
-                offerPrice: 'EUR 5.99'
+                offerPrice: 'EUR 4.99',
+                widget: "PromoOaas"
             },
         ]
     })}</div> 

@@ -7,11 +7,11 @@ server.use(express.static(path.join(__dirname, 'dist')));
 
 server.get('/hostingactions/', function (req, res) {
 
+    res.setHeader('Content-Type', 'text/html')
     res.write(`
-    <!DOCTYPE html>
     <div id="hostingactions">${app.render()}</div> 
     <script src="/hostingactions/bundle.js"></script>
-  `);
+    `);
 
     res.end();
 });
