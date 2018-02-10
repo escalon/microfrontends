@@ -8,7 +8,6 @@ node_modules/
 dist/
 
 target/
-!.mvn/wrapper/maven-wrapper.jar
 
 # IntelliJ project files
 ### IntelliJ IDEA ###
@@ -45,5 +44,3 @@ gen
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
-/dist/
-/node_modules/
