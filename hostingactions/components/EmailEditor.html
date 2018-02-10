@@ -61,7 +61,8 @@
                     'account.userName': {
                         format: {
                             pattern: '[A-Z0-9._%+-]+',
-                            flags: 'i' // ignore case
+                            flags: 'i', // ignore case
+                            message: '"%{value}" is not a valid account name'
                         }
                     },
                     'account.displayName': {
