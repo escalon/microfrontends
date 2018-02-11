@@ -1,3 +1,4 @@
+<!-- TODO: style error messages in InputText -->
 <label for="{{id}}" class="form__label">
     {{label}}
 </label>
@@ -21,14 +22,19 @@
     export default {
         helpers: {
             errorClass(errors, binding) {
-                return ` ${errors[binding] ? 'form__input--error' : 'form__input--success'}`;
+                let ret;
+                if(errors.hasOwnProperty(binding)) {
+                    ret = ` ${errors[binding] ? 'form__input--error' : 'form__input--success'}`;
+                } else {
+                    ret = '';
+                }
+                return ret;
             },
             errorMessage(errors, binding) {
                 return errors[binding] ? errors[binding][0] : '';
             }
         },
         methods: {
-            validate,
             validateSingle(target, removeErrorsOnly) {
                 let binding = target.getAttribute('data-binding') || '';
                 const {constraints} = this.get();
