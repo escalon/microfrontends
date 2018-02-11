@@ -2,12 +2,14 @@
 <label for="{{id}}" class="form__label">
     {{label}}
 </label>
+{{#if errors[binding]}}
+<span> {{errorMessage(errors, binding)}}</span>
+{{/if}}
 <input bind:value="value" placeholder='{{placeholder}}' id="{{id}}"
        type="text"
        class="form__input{{errorClass(errors, binding)}}"
        on:change="validateSingle(event.target)" on:input="removeErrors(event.target)"
        data-binding="{{binding}}">
-<span> {{errorMessage(errors, binding)}}</span>
 <script>
     import validate from 'validate.js';
 
@@ -41,7 +43,7 @@
                 const fieldErrors = validate.single(target.value, constraints[binding]);
                 const errors = this.get('errors');
                 if (removeErrorsOnly && (fieldErrors || !errors.hasOwnProperty(binding))) {
-                    return;
+                    return; // no definition of errors while editing, except setting existing errors to undefined
                 }
                 errors[binding] = fieldErrors;
                 this.set({errors});
