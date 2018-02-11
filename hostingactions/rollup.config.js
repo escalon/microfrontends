@@ -22,6 +22,13 @@ export default [
                 hydratable: true,
                 store: true,
                 cascade: false,
+                onwarn: function (warning, defaultHandler) {
+                    if (warning.message === "Unused CSS selector") {
+                        // suppress
+                    } else {
+                        defaultHandler(warning);
+                    }
+                },
                 preprocess: {
                     style: ({ content, attributes }) => {
                         if (attributes.type !== 'text/scss') return;

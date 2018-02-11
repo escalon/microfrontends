@@ -38,12 +38,12 @@
             validateSingle(target, removeErrorsOnly) {
                 let binding = target.getAttribute('data-binding') || '';
                 const {constraints} = this.get();
-                const result = validate.single(target.value, constraints[binding]);
-                if (removeErrorsOnly && result) {
+                const fieldErrors = validate.single(target.value, constraints[binding]);
+                const errors = this.get('errors');
+                if (removeErrorsOnly && (fieldErrors || !errors.hasOwnProperty(binding))) {
                     return;
                 }
-                const errors = this.get('errors');
-                errors[binding] = result;
+                errors[binding] = fieldErrors;
                 this.set({errors});
             },
             removeErrors(target) {
