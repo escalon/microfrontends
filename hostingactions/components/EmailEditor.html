@@ -1,12 +1,15 @@
 <form class="form">
     <div class="grid form__rows">
-        <div class="grid__col grid__col--12">
-            <InputText id="userName" label="New email address"
+        <div class="grid__col grid__col--6">
+            <InputText id="userName" label="Email account"
                        binding="account.userName"
                        bind:value="account.userName"
                        bind:errors="errors"
                        constraints="{{constraints}}"
             />
+        </div>
+        <div class="grid__col grid__col--6">
+            @{{domain}}
         </div>
         <div class="grid__col grid__col--12">
             <InputText id="displayName" label="Display name"
@@ -61,7 +64,7 @@
                         format: {
                             pattern: '[A-Z0-9._%+-]+',
                             flags: 'i', // ignore case
-                            message: '"%{value}" is not a valid account name'
+                            message: '\'%{value}\' is not a valid account name'
                         }
                     },
                     'account.displayName': {
