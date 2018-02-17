@@ -10,7 +10,7 @@
             <div class="grid__col grid__col--4">{{account.userName}}@{{product.domain}}</div>
             <div class="grid__col grid__col--4">{{account.displayName}}</div>
             <div class="grid__col grid__col--4">
-                <button class="button button--small" on:click="beginUpdateAccount(index)">Edit</button>
+                <button class="button button--small button--launch-update-email" on:click="beginUpdateAccount(index)">Edit</button>
                 <button class="button button--small button--confirm-delete" on:click="confirmDelete(index)">Delete</button>
             </div>
             {{/each}}

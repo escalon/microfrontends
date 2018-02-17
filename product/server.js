@@ -4,7 +4,7 @@ const app = require('./dist/ssr/bundle.js'); // require component
 const server = express();
 
 server.use('/', express.static(path.join(__dirname, 'dist')));
-// TODO: don't do this in production build
+// TODO: this is for local development, don't do this in production build
 server.use('/hostingactions', express.static(path.join(__dirname, '..', 'hostingactions', 'dist', 'hostingactions')));
 
 server.get('/product/', function (req, res) {

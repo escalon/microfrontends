@@ -3,7 +3,7 @@
     {{label}}
 </label>
 {{#if errors[binding]}}
-<span> {{errorMessage(errors, binding)}}</span>
+<span class="form__error-message"> {{errorMessage(errors, binding)}}</span>
 {{/if}}
 <input bind:value="value" placeholder='{{placeholder}}' id="{{id}}"
        type="text"

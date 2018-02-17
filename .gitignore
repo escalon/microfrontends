@@ -34,15 +34,15 @@ gen
 .mtj.tmp/
 
 # Package Files #
-*.jar
-*.war
-*.ear
-*.zip
-*.tar.gz
-*.rar
+# *.jar
+#*.war
+#*.ear
+#*.zip
+#*.tar.gz
+#*.rar
 
 # Maven
-+!.mvn/wrapper/maven-wrapper.jar
+!.mvn/wrapper/maven-wrapper.jar
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
