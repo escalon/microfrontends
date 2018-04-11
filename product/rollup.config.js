@@ -76,7 +76,28 @@ export default [
             svelte({
                 hydratable: true,
                 store: true,
-                generate: 'ssr'
+                generate: 'ssr',
+                preprocess: {
+                    style: ({ content, attributes }) => {
+                        if (attributes.type !== 'text/scss') return;
+
+                        return new Promise((fulfil, reject) => {
+                            sass.render({
+                                data: content,
+                                includePaths: ['../comet/src'],
+                                sourceMap: true,
+                                outFile: 'x' // this is necessary, but is ignored
+                            }, (err, result) => {
+                                if (err) return reject(err);
+
+                                fulfil({
+                                    code: result.css.toString(),
+                                    map: result.map.toString()
+                                });
+                            });
+                        });
+                    }
+                }
             }),
             resolve({
                 jsnext: true,
