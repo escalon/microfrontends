@@ -1,6 +1,8 @@
-<PromotionDescription :product></PromotionDescription>
-<div class="promotion"><strong>{{product.offerPrice}}!</strong></div>
-<PromotionActions :product></PromotionActions>
+<div class="grid__col grid__col--6">
+    <PromotionDescription :product></PromotionDescription>
+    <div class="promotion"><strong>{{product.offerPrice}}!</strong></div>
+    <PromotionActions :product></PromotionActions>
+</div>
 
 <script>
     import PromotionDescription from './PromotionDescription.html';
