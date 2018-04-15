@@ -1,35 +1,39 @@
 <form class="form">
-    <div class="grid form__rows">
-        <div class="grid__col grid__col--6">
-            <InputText id="userName" label="Email account"
-                       binding="account.userName"
-                       bind:value="account.userName"
-                       bind:errors="errors"
-                       constraints="{{constraints}}"
-            />
-        </div>
-        <div class="grid__col grid__col--6">
-            @{{domain}}
-        </div>
-        <div class="grid__col grid__col--12">
-            <InputText id="displayName" label="Display name"
-                       binding="account.displayName"
-                       bind:value="account.displayName"
-                       bind:errors="errors"
-                       constraints="{{constraints}}"
-            />
-        </div>
-        <div class="grid__col grid__col--12">
-            <button type="button" class="button button--outline button--cancel"
-                    on:click="fire('cancel')">
-                Cancel
-            </button>
-            <button type="button" class="button button--confirm"
-                    on:click="finish()">
-                {{confirmLabel}}
-            </button>
-        </div>
-    </div>
+    <table class="table">
+        <col width="25%">
+        <col width="25%">
+        <col width="25%">
+        <col width="25%">
+        <tr>
+            <td>
+                <InputText id="userName" label="Email account"
+                           binding="account.userName"
+                           bind:value="account.userName"
+                           bind:errors="errors"
+                           constraints="{{constraints}}"
+                />
+            </td>
+            <td>@{{domain}}</td>
+            <td>
+                <InputText id="displayName" label="Display name"
+                           binding="account.displayName"
+                           bind:value="account.displayName"
+                           bind:errors="errors"
+                           constraints="{{constraints}}"
+                />
+            </td>
+            <td class="utility__text--right">
+                <button type="button" class="button button--outline button--cancel"
+                        on:click="fire('cancel')">
+                    Cancel
+                </button>
+                <button type="button" class="button button--confirm"
+                        on:click="finish()">
+                    {{confirmLabel}}
+                </button>
+            </td>
+        </tr>
+    </table>
 </form>
 <script>
     import validate from 'validate.js';

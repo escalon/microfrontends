@@ -1,24 +1,23 @@
+<h3 class="margin_top_small">{{product.name}}</h3>
 
-    <h3>{{product.name}}</h3>
+<!--{{#if product.name==='Domain'}}
+<PromoDomain :product></PromoDomain>
+{{elseif product.name==='Hosting'}}
+<PromoHosting :product></PromoHosting>
+{{elseif product.name==='DSL'}}
+<PromoDsl :product></PromoDsl>-->
 
-    <!--{{#if product.name==='Domain'}}
-    <PromoDomain :product></PromoDomain>
-    {{elseif product.name==='Hosting'}}
-    <PromoHosting :product></PromoHosting>
-    {{elseif product.name==='DSL'}}
-    <PromoDsl :product></PromoDsl>-->
-
-    {{#if product.name==='LTE'}}
-    <PromoLte :product></PromoLte>
-    {{elseif product.name==='Office as a Service'}}
-    <PromoOaas :product></PromoOaas>
-    {{elseif product.name==='Cloud Storage'}}
-    <PromoCloudStorage :product></PromoCloudStorage>
-    {{else}}
-    {{#each Object.keys(product).filter(key => key !== 'name') as key}}
-    <div>{{key}}: {{product[key]}}</div>
-    {{/each}}
-    {{/if}}
+{{#if product.name==='LTE'}}
+<PromoLte :product></PromoLte>
+{{elseif product.name==='Office as a Service'}}
+<PromoOaas :product></PromoOaas>
+{{elseif product.name==='Cloud Storage'}}
+<PromoCloudStorage :product></PromoCloudStorage>
+{{else}}
+{{#each Object.keys(product).filter(key => key !== 'name') as key}}
+<div>{{key}}: {{product[key]}}</div>
+{{/each}}
+{{/if}}
 
 <script>
     // import PromoDomain from './PromoDomain.html';
@@ -45,8 +44,13 @@
     };
 </script>
 
-<style>
-    h3 {
+<style type="text/scss">
+    @import 'comet';
+    .margin_top_small {
         color: darkgray;
+        margin: 1rem 0 1rem;
+    }
+    .height_100 {
+        height: 100px;
     }
 </style>

@@ -1,7 +1,9 @@
-<div class="grid__col grid__col--6">
-    <PromotionDescription :product></PromotionDescription>
-    <div class="promotion"><strong>{{product.offerPrice}}!</strong></div>
-    <PromotionActions :product></PromotionActions>
+<div class="grid__col grid__col--4">
+    <div class="border_round">
+        <PromotionDescription :product></PromotionDescription>
+        <div class="promotion"><strong>{{product.offerPrice}}!</strong></div>
+        <PromotionActions :product></PromotionActions>
+    </div>
 </div>
 
 <script>
@@ -29,5 +31,13 @@
         font-size: 2.5rem;
         margin-bottom: 0.5em;
     }
-
+    .border_round {
+        background-color: lighten($color__primary, 75%);
+        border-color: $color__primary;
+        border-radius: 25px;
+        border-width: 2px;
+        border-style: solid;
+        height: 280px;
+        padding: $container__padding;
+    }
 </style>

@@ -2,7 +2,7 @@
     <div class="modal">
         <button class="button--close button button--clear" on:click="close()">&times;</button>
         <div>
-            <h3>{{title}}</h3>
+            <h3 class="margin_top_small">{{title}}</h3>
             <slot><!-- content of Modal element here --></slot>
         </div>
     </div>
@@ -71,5 +71,8 @@
         top: 0;
         z-index: 1;
     }
-
+    .margin_top_small {
+        color: darkgray;
+        margin: 1rem 0 1rem;
+    }
 </style>

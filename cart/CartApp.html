@@ -10,9 +10,13 @@
 <!--<Route exact path="/cart/status">-->
 <!--<CartStatus items="{{$items}}"/>-->
 <!--</Route>-->
-<CartStatus on:cartToggled="toggleCart()" items="{{$items}}"/>
+<div class="utility__pos--right grid__col grid__col--4">
+    <CartStatus on:cartToggled="toggleCart()" items="{{$items}}"/>
+</div>
 {{#if !iconized}}
-<Cart items="{{$items}}"/>
+    <div class="grid__col grid__col--8">
+        <Cart items="{{$items}}"/>
+    </div>
 {{/if}}
 <script>
     // import NavLink from 'svelte-routing/NavLink.html';

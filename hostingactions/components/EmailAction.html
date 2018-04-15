@@ -1,23 +1,32 @@
 <div class="email-action">
     {{#if status.startsWith('idle')}}
-    <button class="button button--clear button--large button--launch" on:click="go('editing.accountList')">Manage Email Accounts
+    <button class="button button--clear button--large button--launch lineheight_small" on:click="go('editing.accountList')">Manage Email Accounts
     </button>
     {{elseif status.startsWith('editing')}}
     <Modal title="Manage Email Accounts" on:modaldone="go('idle')">
         {{#if status.startsWith('editing.accountList')}}
-        <div class="grid form__rows">
+        <table class="table">
+            <col width="40%">
+            <col width="35%">
+            <col width="25%">
+
             {{#each accounts as account, index}}
-            <div class="grid__col grid__col--4">{{account.userName}}@{{product.domain}}</div>
-            <div class="grid__col grid__col--4">{{account.displayName}}</div>
-            <div class="grid__col grid__col--4">
-                <button class="button button--small button--launch-update-email" on:click="beginUpdateAccount(index)">Edit</button>
-                <button class="button button--small button--confirm-delete" on:click="confirmDelete(index)">Delete</button>
-            </div>
+            <tr>
+                <td>{{account.userName}}@{{product.domain}}</td>
+                <td>{{account.displayName}}</td>
+                <td class="utility__text--right">
+                    <button class="button button--small button--launch-update-email" on:click="beginUpdateAccount(index)">Edit</button>
+                    <button class="button button--small button--confirm-delete" on:click="confirmDelete(index)">Delete</button>
+                </td>
+            </tr>
             {{/each}}
-            <div class="grid__col grid__col--12">
-                <button class="button button--small button--launch-add-email" on:click="beginAddAccount()">Add</button>
-            </div>
-        </div>
+            <tr>
+                <td colspan="3" class="utility__text--right">
+                    <button class="button button--small button--launch-add-email" on:click="beginAddAccount()">Add</button>
+                </td>
+            </tr>
+        </table>
+
         <button class="button button--ok" on:click="go('idle')">Ok</button>
         {{elseif status.startsWith('editing.add')}}
         <EmailEditor domain="{{product.domain}}" account="{{currentAccount}}" confirmLabel="Add"
@@ -148,6 +157,9 @@
 
     .form__rows {
         align-items: center;
+    }
+    .lineheight_small {
+        line-height: 4rem;
     }
 </style>
 
