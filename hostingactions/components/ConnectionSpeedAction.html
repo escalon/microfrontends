@@ -9,7 +9,7 @@
             <option>100 Mbit/s at 19.99 EUR</option>
         </select>
         </p>
-        <button class="button" on:click="set({'status': 'idle'})">Ok</button>
+        <button class="button button--ok" on:click="set({'status': 'idle'})">Ok</button>
     </Modal>
     {{/if}}
 </div>
@@ -36,5 +36,8 @@
 
     .lineheight_small {
         line-height: 4rem;
+    }
+    .button--ok {
+        font-size: 1.5rem;
     }
 </style>

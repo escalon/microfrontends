@@ -8,7 +8,7 @@
             <option>Linux, Java</option>
         </select>
         </p>
-        <button class="button" on:click="set({'status': 'idle'})">Ok</button>
+        <button class="button button--ok" on:click="set({'status': 'idle'})">Ok</button>
     </Modal>
     {{/if}}
 </div>
@@ -35,6 +35,9 @@
 
     .lineheight_small {
         line-height: 4rem;
+    }
+    .button--ok {
+        font-size: 1.5rem;
     }
 </style>
 
