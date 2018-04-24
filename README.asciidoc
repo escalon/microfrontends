@@ -318,7 +318,7 @@ IMPORTANT: On Windows 10 it is necessary to run docker-compose in a *standalone 
 Thanks to:
 
 * http://github.com/gustafnk[Gustaf Nilsson Kotte] for the microfrontends idea
-* http://github.com/rich-harris[Rich Harris] for his patient support
+* http://github.com/rich-harris[Rich Harris] for his patient support with sveltejs
 * https://github.com/erubroeder[Ellen Rubröder] for offering help with the style
 
 == Todo
