@@ -233,15 +233,16 @@ For more customElement options see the https://github.com/sveltejs/svelte[docume
 
 === Zuul Proxy
 Necessary to deliver an app and its static resources from a common URL.
-http://localhost:8888/app/cart/ +
-http://localhost:8888/app/product/
+http://localhost:8888/cart/ +
+http://localhost:8888/product/
 
 === Aggregator
+Defines the page with containing microfrontends.
 .src/main/templates/index.html
 [source, html]
 ----
-<div th:replace="http://localhost:8888/app/cart"></div>
-<div th:replace="http://localhost:8888/app/product"></div>
+<div th:replace="http://localhost:8888/cart"></div>
+<div th:replace="http://localhost:8888/product"></div>
 ----
 == Building
 
