@@ -291,7 +291,9 @@ Building involves packaging and creating docker images. Make sure Docker is runn
 
 === Locally
 
-Run the Java artifacts with the Spring profile 'dev' to make them connect with locally running Node instances.
+Run the Java artifacts with the Spring profile 'dev' to make them connect with locally running Node instances. To run them with Maven, cd into aggregator and zuul respectively and execute:
+
+    $ mvn spring-boot:run -Dspring-boot.run.profiles=dev
 
 cd into product, cart and hostingactions respectively and execute
 
@@ -305,6 +307,11 @@ Open the browser:
    localhost:8888/webcomponent
 
 === Docker
+
+To build and push docker images from aggregator and zuul, make sure docker is running, then cd into the respective directories and execute
+
+    $ mvn dockerfile:build
+    $ mvn dockerfile:push
 
 Docker for Windows requires Windows 10 Professional or Enterprise 64 bit with enabled Hyper-V.
 
