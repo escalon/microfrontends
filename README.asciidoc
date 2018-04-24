@@ -313,6 +313,14 @@ IMPORTANT: On Windows 10 it is necessary to run docker-compose in a *standalone 
     $ docker-compose -f docker/common/docker-compose.yml up
     $ docker-compose -f docker/common/docker-compose.yml down
 
+== Acknowledgements
+
+Thanks to:
+
+* http://github.com/gustafnk[Gustaf Nilsson Kotte] for the microfrontends idea
+* http://github.com/rich-harris[Rich Harris] for his patient support
+* https://github.com/erubroeder[Ellen Rubröder] for offering help with the style
+
 == Todo
 * Git submodules for cartcomponents and hostingactions so that npm link is not required for building and running
 
@@ -335,3 +343,5 @@ With master style there is a css which dominates the page. A component cannot is
 Without master style the pattern lab reigns only over parts which want to be reigned (e.g. classes describing the parts of the page and style which only applies to those), but apps can choose to apply the pattern lab by building their own css prefixed with their own signature class.
 
 ** Style which applies to elements having predefined classes like BEM or Bootstrap makes it necessary to apply those classes inside the component markup, is there an alternative which would allow to process the master css so that it becomes part of the component style, applies to the component markup and is stripped down to the styles really needed by the component?
+
+
