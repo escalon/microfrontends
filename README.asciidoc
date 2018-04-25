@@ -17,7 +17,6 @@ The overall infrastructure to deliver the microfrontends is made up of Spring bo
 
 * aggregator (thymeleaf template index.html aggregates microfrontends and provides menu)
 * zuul (makes all parts available to the browser from the same host)
-* order-service (microservice for orders, TODO: currently unused)
 
 === Aggregation
 In a microfrontend architecture pages are aggregated from multiple sources and they contain several microfrontends. An aggregator can sit in front of a content management system where it retrieves a site navigation menu, footer etc., but a CMS can also play the role of the aggregator itself.
@@ -26,13 +25,11 @@ Aggregation can happen in the backend or on the client. Aggregation in the backe
 
 There are various technologies and tools which can be used for this kind of aggregation.
 
-You can use a template engine that is able to retrieve html and place it into the page (e.g. for Java jsp or the more modern Thymeleaf), or you can set up https://www.nginx.com/blog/benefits-of-microcaching-nginx/[microcaching (TODO)] or even edge side inclusion (http://www.globaldots.com/edge-side-includes-esi-complete-overview/[ESI]) to assemble the html page which will be delivered to the browser.
-
-TODO: Also see http://nginx.org/en/docs/http/ngx_http_ssi_module.html.
+You can use a template engine that is able to retrieve html and place it into the page (e.g. for Java jsp or the more modern Thymeleaf), or you can set up server-side includes http://nginx.org/en/docs/http/ngx_http_ssi_module.html[(SSI)], https://www.nginx.com/blog/benefits-of-microcaching-nginx/[microcaching] or even edge side inclusion (http://www.globaldots.com/edge-side-includes-esi-complete-overview/[ESI]) to assemble the html page which will be delivered to the browser.
 
 For declarative client-side transclusion of markup you can use a web component like https://github.com/gustafnk/h-include[h-include.js] by https://github.com/gustafnk/[@gustafnk] or the pre-web-component https://github.com/mnot/hinclude[hinclude] by https://github.com/mnot/[@mnot].
 
-The aggregator service in this project uses a template-engine (Thymeleaf) to aggregate the backend part of the page, and /TODO/ it also demonstrates client-side aggregation using https://github.com/gustafnk/h-include[h-include.js].
+For simplicity, the aggregator service in this project uses a template-engine (Thymeleaf) to aggregate the backend part of the page.
 
 === No-framework Javascript
 "Disappearing" frameworks like Svelte.js or Stencil.js allow to have no framework library in the page, instead relying on standard Javascript (with polyfills for older browsers).
@@ -233,15 +230,16 @@ For more customElement options see the https://github.com/sveltejs/svelte[docume
 
 === Zuul Proxy
 Necessary to deliver an app and its static resources from a common URL.
-http://localhost:8888/app/cart/ +
-http://localhost:8888/app/product/
+http://localhost:8888/cart/ +
+http://localhost:8888/product/
 
 === Aggregator
+Defines the page with containing microfrontends.
 .src/main/templates/index.html
 [source, html]
 ----
-<div th:replace="http://localhost:8888/app/cart"></div>
-<div th:replace="http://localhost:8888/app/product"></div>
+<div th:replace="http://localhost:8888/cart"></div>
+<div th:replace="http://localhost:8888/product"></div>
 ----
 == Building
 
@@ -320,7 +318,17 @@ IMPORTANT: On Windows 10 it is necessary to run docker-compose in a *standalone 
     $ docker-compose -f docker/common/docker-compose.yml up
     $ docker-compose -f docker/common/docker-compose.yml down
 
-== Todo
+== Acknowledgements
+
+Thanks to:
+
+* http://github.com/gustafnk[Gustaf Nilsson Kotte] for the microfrontends idea
+* http://github.com/rich-harris[Rich Harris] for his patient support with sveltejs
+* https://github.com/erubroeder[Ellen Rubröder] for offering help with the style
+
+== Roadmap
+* Client-side transclusion of Svelte SSR microfrontends
+
 * Git submodules for cartcomponents and hostingactions so that npm link is not required for building and running
 
 * Config for dev-only execution of product (exposes ../hostingactions/dist/hostingactions as static resource), should not do that in production
@@ -337,7 +345,7 @@ IMPORTANT: On Windows 10 it is necessary to run docker-compose in a *standalone 
 * styling concepts
 ** Master style vs. no master style.
 +
-With master style there is a css which dominates the page. A component cannot isolate itself against that, (TODO: unless it uses shadow DOM?).
+With master style there is a css which dominates the page. A component cannot isolate itself against that, unless it uses shadow DOM.
 +
 Without master style the pattern lab reigns only over parts which want to be reigned (e.g. classes describing the parts of the page and style which only applies to those), but apps can choose to apply the pattern lab by building their own css prefixed with their own signature class.
 
