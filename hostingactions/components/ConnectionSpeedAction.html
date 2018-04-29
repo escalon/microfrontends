@@ -1,6 +1,6 @@
 <div class="connectionSpeedAction">
     {{#if status === 'idle'}}
-    <button class="button button--clear button--large" on:click="set({status: 'choice'})">Change connection speed</button>
+    <button class="button button--clear button--large lineheight_small" on:click="set({status: 'choice'})">Change connection speed</button>
     {{elseif status === 'choice'}}
     <Modal title="Change speed" on:modaldone="set({'status': 'idle'})">
         <p><select>
@@ -9,7 +9,7 @@
             <option>100 Mbit/s at 19.99 EUR</option>
         </select>
         </p>
-        <button class="button" on:click="set({'status': 'idle'})">Ok</button>
+        <button class="button button--ok" on:click="set({'status': 'idle'})">Ok</button>
     </Modal>
     {{/if}}
 </div>
@@ -33,4 +33,11 @@
 </script>
 <style type="text/scss">
     @import 'comet';
+
+    .lineheight_small {
+        line-height: 4rem;
+    }
+    .button--ok {
+        font-size: 1.5rem;
+    }
 </style>

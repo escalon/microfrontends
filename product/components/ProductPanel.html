@@ -1,5 +1,9 @@
-<ProductDescription :product></ProductDescription>
-<ProductActions :product></ProductActions>
+<div class="grid__col grid__col--4">
+    <div class="border_round">
+        <ProductDescription :product></ProductDescription>
+        <ProductActions :product></ProductActions>
+    </div>
+</div>
 
 <script>
     import ProductDescription from './ProductDescription.html';
@@ -17,3 +21,15 @@
         }
     };
 </script>
+<style type="text/scss">
+    @import 'comet';
+
+    .border_round {
+        border-color: $color__primary;
+        border-radius: 25px;
+        border-width: 2px;
+        border-style: solid;
+        height: 280px;
+        padding: $container__padding;
+    }
+</style>

@@ -17,6 +17,7 @@ The overall infrastructure to deliver the microfrontends is made up of Spring bo
 
 * aggregator (thymeleaf template index.html aggregates microfrontends and provides menu)
 * zuul (makes all parts available to the browser from the same host)
+* order-service (microservice for orders, TODO: currently unused)
 
 === Aggregation
 In a microfrontend architecture pages are aggregated from multiple sources and they contain several microfrontends. An aggregator can sit in front of a content management system where it retrieves a site navigation menu, footer etc., but a CMS can also play the role of the aggregator itself.
@@ -25,7 +26,9 @@ Aggregation can happen in the backend or on the client. Aggregation in the backe
 
 There are various technologies and tools which can be used for this kind of aggregation.
 
-You can use a template engine that is able to retrieve html and place it into the page (e.g. for Java jsp or the more modern Thymeleaf), or you can set up server-side includes http://nginx.org/en/docs/http/ngx_http_ssi_module.html[(SSI)], https://www.nginx.com/blog/benefits-of-microcaching-nginx/[microcaching] or even edge side inclusion (http://www.globaldots.com/edge-side-includes-esi-complete-overview/[ESI]) to assemble the html page which will be delivered to the browser.
+You can use a template engine that is able to retrieve html and place it into the page (e.g. for Java jsp or the more modern Thymeleaf), or you can set up https://www.nginx.com/blog/benefits-of-microcaching-nginx/[microcaching (TODO)] or even edge side inclusion (http://www.globaldots.com/edge-side-includes-esi-complete-overview/[ESI]) to assemble the html page which will be delivered to the browser.
+
+TODO: Also see http://nginx.org/en/docs/http/ngx_http_ssi_module.html.
 
 For declarative client-side transclusion of markup you can use a web component like https://github.com/gustafnk/h-include[h-include.js] by https://github.com/gustafnk/[@gustafnk] or the pre-web-component https://github.com/mnot/hinclude[hinclude] by https://github.com/mnot/[@mnot].
 
@@ -350,3 +353,5 @@ With master style there is a css which dominates the page. A component cannot is
 Without master style the pattern lab reigns only over parts which want to be reigned (e.g. classes describing the parts of the page and style which only applies to those), but apps can choose to apply the pattern lab by building their own css prefixed with their own signature class.
 
 ** Style which applies to elements having predefined classes like BEM or Bootstrap makes it necessary to apply those classes inside the component markup, is there an alternative which would allow to process the master css so that it becomes part of the component style, applies to the component markup and is stripped down to the styles really needed by the component?
+
+

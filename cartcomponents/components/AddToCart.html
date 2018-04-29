@@ -1,4 +1,8 @@
-<button class="button button--small" on:click="add(product)" xmlns:on="http://www.w3.org/1999/xhtml">Add</button> ({{itemCount}})
+<div class="grid">
+    <div class="grid__col grid__col--12">
+        <button class="button button--small stretch" on:click="add(product)" xmlns:on="http://www.w3.org/1999/xhtml">Add</button>
+    </div>
+</div>
 
 <script>
     import store from '../store.js'
@@ -25,4 +29,10 @@
 </script>
 <style type="text/scss">
     @import 'comet';
+    .button.stretch {
+        width: 100%;
+    }
+    .button--small {
+        font-size: 1.5rem;
+    }
 </style>

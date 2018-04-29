@@ -11,7 +11,7 @@ server.get('/product/', function (req, res) {
 
     res.write(`
     <!DOCTYPE html>
-    <div id="product">${app.render({
+    <div id="product" class="grid">${app.render({
         products: [
             {
                 name: "Hosting",

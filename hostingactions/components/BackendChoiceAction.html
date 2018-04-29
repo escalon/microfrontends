@@ -1,14 +1,14 @@
 <div class="backend-choice-action">
     {{#if status === 'idle'}}
-    <button class="button button--clear button--large button--launch" on:click="set({status: 'choice'})">Choose backend</button>
+    <button class="button button--clear button--large button--launch lineheight_small" on:click="set({status: 'choice'})">Choose backend</button>
     {{elseif status === 'choice'}}
     <Modal title="Choose backend" on:modaldone="set({'status': 'idle'})">
-        <p><select>
+        <p><select class="form__input">
             <option>Linux, Apache, MySQL, PHP</option>
             <option>Linux, Java</option>
         </select>
         </p>
-        <button class="button" on:click="set({'status': 'idle'})">Ok</button>
+        <button class="button button--ok" on:click="set({'status': 'idle'})">Ok</button>
     </Modal>
     {{/if}}
 </div>
@@ -32,5 +32,12 @@
 </script>
 <style type="text/scss">
     @import 'comet';
+
+    .lineheight_small {
+        line-height: 4rem;
+    }
+    .button--ok {
+        font-size: 1.5rem;
+    }
 </style>
 

@@ -1,8 +1,12 @@
 <div class="cart">
-    <div>You have {{itemCount}} item{{itemCount == 1? '': 's'}} in your shopping cart.</div>
-    <table>
+    <table class="table">
         <col width="50%">
         <col width="25%">
+        <tr>
+            <td colspan="2">
+                You have {{itemCount}} item{{itemCount == 1? '': 's'}} in your shopping cart.
+            </td>
+        </tr>
         {{#each items as item, index}}
         <tr>
             <td><a target='_blank' href="/{{item.name}}">{{item.name}}</a></td>
@@ -36,7 +40,10 @@
 </script>
 
 <style>
-    table {
-        border-spacing: 0.3em;
+    a {
+        border-bottom: 0.2rem solid #4CAF50;
+    }
+    .button--small {
+        font-size: 1.5rem;
     }
 </style>
