@@ -17,18 +17,15 @@ The overall infrastructure to deliver the microfrontends is made up of Spring bo
 
 * aggregator (thymeleaf template index.html aggregates microfrontends and provides menu)
 * zuul (makes all parts available to the browser from the same host)
-* order-service (microservice for orders, TODO: currently unused)
 
 === Aggregation
-In a microfrontend architecture pages are aggregated from multiple sources and they contain several microfrontends. An aggregator can sit in front of a content management system where it retrieves a site navigation menu, footer etc., but a CMS can also play the role of the aggregator itself.
+In a microfrontend architecture pages are aggregated from multiple sources and they contain several microfrontends. An aggregator can sit in front of a content management system frome where it can retrieve a site navigation menu, footer etc., but a CMS can also play the role of the aggregator itself.
 
 Aggregation can happen in the backend or on the client. Aggregation in the backend means that the markup of html pages is assembled during delivery. Aggregation in the client means that the browser transcludes markup much like it transcludes images in html pages: The browser fetches parts of the page asynchronously and shows them when they are ready.
 
 There are various technologies and tools which can be used for this kind of aggregation.
 
-You can use a template engine that is able to retrieve html and place it into the page (e.g. for Java jsp or the more modern Thymeleaf), or you can set up https://www.nginx.com/blog/benefits-of-microcaching-nginx/[microcaching (TODO)] or even edge side inclusion (http://www.globaldots.com/edge-side-includes-esi-complete-overview/[ESI]) to assemble the html page which will be delivered to the browser.
-
-TODO: Also see http://nginx.org/en/docs/http/ngx_http_ssi_module.html.
+You can use a template engine that is able to retrieve html and place it into the page (e.g. for Java jsp or the more modern Thymeleaf), or you can set up server-side includes http://nginx.org/en/docs/http/ngx_http_ssi_module.html[(SSI)], https://www.nginx.com/blog/benefits-of-microcaching-nginx/[microcaching] or even edge side inclusion (http://www.globaldots.com/edge-side-includes-esi-complete-overview/[ESI]) to assemble the html page which will be delivered to the browser.
 
 For declarative client-side transclusion of markup you can use a web component like https://github.com/gustafnk/h-include[h-include.js] by https://github.com/gustafnk/[@gustafnk] or the pre-web-component https://github.com/mnot/hinclude[hinclude] by https://github.com/mnot/[@mnot].
 
@@ -43,59 +40,27 @@ No-framework microfrontends can both be added *alongside* a classic framework ap
 
 
 === Server Side Rendering
-While it is possible to deliver an SPA by just including some bootstrapping element on the page and letting Javascript handle the markup, Server Side Rendering (SSR) is preferable for non-personal data because the initial page is complete from the start and it is not necessary to wait for Javascript to fill the DOM.
+Svelte components can be used for Server Side Rendering (SSR) in a node application.
+
+While it is possible to deliver an SPA by just including some bootstrapping element on the page and letting Javascript handle the markup, Server Side Rendering is preferable for non-personal data because the initial page is complete from the start and it is not necessary to wait for Javascript to fill the DOM.
 
 NOTE: Be wary with caching when delivering personalized, sensitive data in your html. You must not deliver a page containing sensitive data if it has a non-personalized URL, even if you cache only static parts in your system and assemble them immediately before delivery. You have no control over caches between your site and the user's browser and you cannot prevent some proxy or a browser in an internet cafe to deliver cached content for a user who was not the original recipient, if the same URL produces different content for different users.
 
-To make this work in svelte.js, you need to register the svelte compiler in the server application. It will compile any imported component so that it gets a `render(data)` method which is used to render the component with the given data; then use the result to build the server response.
+To make this work in svelte.js, you need to register the svelte compiler in the server application or tell the compiler to create a pre-built commonjs package. It will compile any imported component so that it gets a `render(data)` method which is used to render the component with the given data; then use the result to build the server response.
 
-Next, tell the component in the browser that it should *hydrate* the pre-rendered markup, i.e. instead of creating the markup in the DOM from scratch it should adopt the markup it encounters.
+In addition, tell the component in the browser that it should *hydrate* the pre-rendered markup, i.e. instead of creating the markup in the DOM from scratch it should adopt the markup it encounters.
 
-==== Svelte Store with SSR
-
-Using Svelte Store is possible with SSR. You can enable the store using the SSR option `store: true` when registering the component and pass the store to the `render()` method as shown below.
-
-.server.js
-[source, javascript]
-----
-require('svelte/ssr/register')({
-    store: true
-}); // enable store on svelte compiler
-...
-const store = new Store({items: []});
-server.get('/cart/', function(req, res) {
-    res.write(`
-    <!DOCTYPE html>
-    <div id="cart">${app.render({}, {store})}</div>
-    <script src="/cart/bundle.js"></script>
-  `);
-    res.end();
-});
-----
-As an alternative, a component can define declaratively that it needs the store, so that an app need not know that its components require a store internally. For an example see _AddToCart.html_ and _store.js_ in cartcomponent.
-
-.AddToCart.html
-[source, javascript]
-----
-import store from '../store.js' // provides a global store instance bound to sessionstorage
-export default {
-    store: () => store,
-    tag: 'add-to-cart'
-}
-----
-
-That allows you to render components on the server which also make use of Svelte store in the browser.
 
 === Remove unused CSS
 
-The Svelte compiler removes unused css if you configure it not to cascade styles of a component to child components. That makes it easy for the compiler to decide whether or not a rule is used by a component, since it knows its possible states.
+The Svelte compiler removes unused css if you configure it not to cascade styles of a component to child components (default from Svelte 2). That makes it easy for the compiler to decide whether or not a rule is used by a component, since it knows its possible states.
 
-It also supports processing of css, e.g. with postcss or a sass or less compiler.
+It also supports preprocessing of css, e.g. with a sass or less compiler.
 
 The project shows how Svelte removes unused styles from a larger css system. You can import the style system into your component and let Svelte figure out which parts are actually relevant for the component. See the style tag of _CartStatus.html_ for an example.
 
 === Exporting Components
-In order to export a component, add a `name` property to the rollup configuration which becomes the namespace for all exported components:
+In order to export a component, add a `name` property to the package's rollup configuration which becomes the namespace for all exported components:
 
 .rollup.config.js
 [source, javascript]
@@ -164,6 +129,8 @@ If you bundle the external component, it will become part of your Svelte applica
 
 If you pick up the external component from the page, the external component can be updated independently of your application, although it appears inside your application.
 
+In order to facilitate long-term caching of a bundle, you can use https://www.npmjs.com/package/rollup-plugin-hash[rollup-plugin-hash].
+
 ==== As Bundled Dependency
 
 *Bundling* an external component is simple: add the package to _package.json_ so that it will be imported from _node_modules_, make sure the build finds the component there (e.g. by adding the `rollup-plugin-resolve` plugin to your _rollup.config.js_) and write an import statement in your component as usual that references the component in the external package.
@@ -201,7 +168,72 @@ Your application's bundling configuration must be told that it should not try to
 
 === Using Svelte Component in SSR
 
-Requires a commonjs bundle of the application.
+In this demo we let the compiler create a commonjs bundle of the application. See the _server.js_ examples in _product_, _cart_ and _hostingactions_ for examples.
+
+
+=== Creating SSR bundles
+
+The commonjs bundles are created by defining separate build output definitions in rollup.config.js:
+
+[source, javascript]
+.rollup.config.js
+----
+{
+    input: 'CartApp.html',
+    output: {
+        file: 'dist/ssr/bundle.js',
+        format: 'cjs', //<1>
+        sourcemap: true,
+    },
+    external: ['svelte/store.js'],
+    plugins: [
+        svelte({
+            hydratable: true,
+            store: true,
+            generate: 'ssr', // <2>
+            cascade: false,
+            // ...
+        }),
+        // ...
+    },
+----
+<1> Tells rollup to create a commonjs module
+<2> Lets the svelte compiler create components with the SSR api, i.e. with a `render()` method instead of the browser api.
+
+==== Svelte Store with SSR
+
+The Svelte Store establishes a common application status across components, which is especially useful when the application runs in the browser. The components refer to data elements in the store where needed.
+
+Using the Svelte Store is possible with SSR too. There are two options. You can enable the store using the SSR option `store: true` when registering the component and pass the store to the `render()` method as shown below.
+
+.server.js
+[source, javascript]
+----
+require('svelte/ssr/register')({
+    store: true
+}); // enable store on svelte compiler
+...
+const store = new Store({items: []});
+server.get('/cart/', function(req, res) {
+    res.write(`
+    <!DOCTYPE html>
+    <div id="cart">${app.render({}, {store})}</div>
+    <script src="/cart/bundle.js"></script>
+  `);
+    res.end();
+});
+----
+As an alternative, a component can define declaratively through an import statement that it needs the store, so that an app need not know that its components require a store internally. That is the technique we use in this demo. For examples see _AddToCart.html_ and _store.js_ in cartcomponent.
+
+.AddToCart.html
+[source, javascript]
+----
+import store from '../store.js' // provides a global store instance bound to sessionstorage
+export default {
+    store: () => store,
+    tag: 'add-to-cart'
+}
+----
 
 === Svelte Components as Custom Elements
 Add a `tag` property to each component you want to use as custom-element and assign a kebab-case tag name with at least one hyphen in it.
@@ -232,18 +264,22 @@ For more customElement options see the https://github.com/sveltejs/svelte[docume
 == URLs
 
 === Zuul Proxy
-Necessary to deliver an app and its static resources from a common URL.
+Allows to deliver html page, app bundles and api resources from a common URL.
 http://localhost:8888/cart/ +
 http://localhost:8888/product/
 
 === Aggregator
-Defines the page with containing microfrontends.
+Aggregates the page with containing microfrontends. For the purposes of this demo, we use thymeleaf as shown below.
+
 .src/main/templates/index.html
 [source, html]
 ----
 <div th:replace="http://localhost:8888/cart"></div>
 <div th:replace="http://localhost:8888/product"></div>
 ----
+
+WARNING: By default, Thymeleaf throws an error when a remote template source is not available. For production you would have to adjust that by customizing the url template resolver.
+
 == Building
 
 === Javascript
@@ -306,6 +342,8 @@ Open the browser:
 
    localhost:8888
    localhost:8888/webcomponent
+
+The webcomponent url shows an example where the cart microfrontend is included as a webcomponent.
 
 === Docker
 
