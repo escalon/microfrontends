@@ -2,6 +2,9 @@
 :toc:
 :icons: font
 
+== Introductory Slides
+https://speakerdeck.com/dschulten/no-framework-microfrontends-statt-frontend-monolithen[German]
+
 == Overview
 Microfrontends are an approach to integrate functionality of microservices not on data, but on ui. Microfrontends are non-trivial user interfaces built by independent teams which can be combined to achieve an overall business value.
 
