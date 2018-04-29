@@ -1,15 +1,15 @@
 <!-- TODO: style error messages in InputText -->
-<label for="{{id}}" class="form__label">
-    {{label}}
+<label for="{id}" class="form__label">
+    {label}
 </label>
-{{#if errors[binding]}}
-<span class="form__error-message"> {{errorMessage(errors, binding)}}</span>
-{{/if}}
-<input bind:value="value" placeholder='{{placeholder}}' id="{{id}}"
+{#if errors[binding]}
+<span class="form__error-message"> {errorMessage(errors, binding)}</span>
+{/if}
+<input bind:value="value" placeholder='{placeholder}' id="{id}"
        type="text"
-       class="form__input{{errorClass(errors, binding)}}"
+       class="form__input{errorClass(errors, binding)}"
        on:change="validateSingle(event.target)" on:input="removeErrors(event.target)"
-       data-binding="{{binding}}">
+       data-binding="{binding}">
 <script>
     import validate from 'validate.js';
 

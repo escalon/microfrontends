@@ -1,7 +1,7 @@
 <div class="connectionSpeedAction">
-    {{#if status === 'idle'}}
+    {#if status === 'idle'}
     <button class="button button--clear button--large lineheight_small" on:click="set({status: 'choice'})">Change connection speed</button>
-    {{elseif status === 'choice'}}
+    {:elseif status === 'choice'}
     <Modal title="Change speed" on:modaldone="set({'status': 'idle'})">
         <p><select>
             <option>16 Mbit/s at 14.99 EUR</option>
@@ -11,7 +11,7 @@
         </p>
         <button class="button button--ok" on:click="set({'status': 'idle'})">Ok</button>
     </Modal>
-    {{/if}}
+    {/if}
 </div>
 
 <script>

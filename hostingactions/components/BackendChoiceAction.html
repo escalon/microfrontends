@@ -1,7 +1,7 @@
 <div class="backend-choice-action">
-    {{#if status === 'idle'}}
+    {#if status === 'idle'}
     <button class="button button--clear button--large button--launch lineheight_small" on:click="set({status: 'choice'})">Choose backend</button>
-    {{elseif status === 'choice'}}
+    {:elseif status === 'choice'}
     <Modal title="Choose backend" on:modaldone="set({'status': 'idle'})">
         <p><select class="form__input">
             <option>Linux, Apache, MySQL, PHP</option>
@@ -10,7 +10,7 @@
         </p>
         <button class="button button--ok" on:click="set({'status': 'idle'})">Ok</button>
     </Modal>
-    {{/if}}
+    {/if}
 </div>
 
 <script>

@@ -73,7 +73,14 @@ export default [
             svelte({
                 hydratable: true,
                 store: true,
-                generate: 'ssr'
+                generate: 'ssr',
+                onwarn: function (warning, defaultHandler) {
+                    if (warning.message === "Unused CSS selector") {
+                        // suppress
+                    } else {
+                        defaultHandler(warning);
+                    }
+                },
             }),
             resolve({
                 jsnext: true,

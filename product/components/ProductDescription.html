@@ -1,7 +1,7 @@
 
-    <h3 class="margin_top_small">{{product.name}}</h3>
+    <h3 class="margin_top_small">{product.name}</h3>
 
-    <:Component {widgets[product.widget]} :product></:Component>
+    <svelte:component this={widgets[product.widget]} {product}></svelte:component>
 
 <script>
     import DescDomain from './DescDomain.html';

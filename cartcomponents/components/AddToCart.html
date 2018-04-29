@@ -9,13 +9,13 @@
     export default {
         methods: {
             add(product) {
-                const svelteStoreItems = this.store.get('items');
-                svelteStoreItems.push(product);
-                this.store.set({'items': svelteStoreItems});
+                const { items } = this.store.get();
+                items.push(product);
+                this.store.set({ items });
             }
         },
         computed: {
-          itemCount: $items => $items.length
+          itemCount: ({ $items }) => $items.length
         },
         data() {
             return {

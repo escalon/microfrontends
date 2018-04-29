@@ -1,12 +1,12 @@
-{{#if product.domain}}
-<EmailAction :product></EmailAction>
-{{/if}}
-{{#if product.hostingType}}
-<BackendChoiceAction :product></BackendChoiceAction>
-{{/if}}
-{{#if product.speed}}
-<ConnectionSpeedAction :product></ConnectionSpeedAction>
-{{/if}}
+{#if product.domain}
+<EmailAction {product}></EmailAction>
+{/if}
+{#if product.hostingType}
+<BackendChoiceAction {product}></BackendChoiceAction>
+{/if}
+{#if product.speed}
+<ConnectionSpeedAction {product}></ConnectionSpeedAction>
+{/if}
 
 <script>
     import EmailAction from './EmailAction.html';

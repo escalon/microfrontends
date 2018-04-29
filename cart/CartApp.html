@@ -11,13 +11,13 @@
 <!--<CartStatus items="{{$items}}"/>-->
 <!--</Route>-->
 <div class="utility__pos--right grid__col grid__col--4">
-    <CartStatus on:cartToggled="toggleCart()" items="{{$items}}"/>
+    <CartStatus on:cartToggled="toggleCart()" items="{$items}"/>
 </div>
-{{#if !iconized}}
+{#if !iconized}
     <div class="grid__col grid__col--8">
-        <Cart items="{{$items}}"/>
+        <Cart items="{$items}"/>
     </div>
-{{/if}}
+{/if}
 <script>
     // import NavLink from 'svelte-routing/NavLink.html';
     // import Route from 'svelte-routing/Route.html';

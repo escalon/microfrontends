@@ -12,26 +12,26 @@
   },
   "dependencies": {
     "@std/esm": "^0.17.3",
-    "core-js": "^2.5.3",
-    "document-register-element": "^1.7.0",
-    "express": "^4.16.2",
-    "path-to-regexp": "^2.1.0",
-    "svelte": "^1.49.3",
-    "svelte-extras": "^1.6.0",
+    "core-js": "^2.5.5",
+    "document-register-element": "^1.8.1",
+    "express": "^4.16.3",
+    "path-to-regexp": "^2.2.1",
+    "svelte": "^2.2.0",
+    "svelte-extras": "^2.0.2",
     "svelte-transitions": "^1.1.1",
     "validate.js": "^0.12.0"
   },
   "devDependencies": {
-    "cypress": "^2.0.1",
-    "node-sass": "^4.7.2",
+    "cypress": "^2.1.0",
+    "node-sass": "^4.9.0",
     "npm-run-all": "^4.1.2",
-    "rollup": "^0.53.3",
+    "rollup": "^0.53.4",
     "rollup-plugin-buble": "^0.18.0",
-    "rollup-plugin-commonjs": "^8.2.6",
+    "rollup-plugin-commonjs": "^8.4.1",
     "rollup-plugin-livereload": "^0.6.0",
-    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-node-resolve": "^3.3.0",
     "rollup-plugin-replace": "^2.0.0",
-    "rollup-plugin-svelte": "^3.1.0"
+    "rollup-plugin-svelte": "^4.1.0"
   },
   "@std/esm": {
     "esm": "js",

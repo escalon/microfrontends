@@ -28,6 +28,13 @@ function plugins() {
             hydratable: true,
             store: true,
             cascade: false, // remove unused css
+            onwarn: function (warning, defaultHandler) {
+                if (warning.message === "Unused CSS selector") {
+                    // suppress
+                } else {
+                    defaultHandler(warning);
+                }
+            },
             preprocess: {
                 style: ({ content, attributes }) => {
                     if (attributes.type !== 'text/scss') return;
@@ -54,36 +61,3 @@ function plugins() {
         //uglify()
     ]
 }
-
-// function pluginsWebComponent() {
-//     return [
-//         svelte({
-//             hydratable: true,
-//             store: true,
-//             customElement: true,
-//             preprocess: {
-//                 style: ({ content, attributes }) => {
-//                     if (attributes.type !== 'text/scss') return;
-//
-//                     return new Promise((fulfil, reject) => {
-//                         sass.render({
-//                             data: content,
-//                             includePaths: ['components'],
-//                             sourceMap: true,
-//                             outFile: 'x' // this is necessary, but is ignored
-//                         }, (err, result) => {
-//                             if (err) return reject(err);
-//
-//                             fulfil({
-//                                 code: result.css.toString(),
-//                                 map: result.map.toString()
-//                             });
-//                         });
-//                     });
-//                 }
-//             }
-//         }),
-//         buble(),
-//         buble({transforms: {classes: false}})
-//     ]
-// }

@@ -4,29 +4,29 @@
         <col width="25%">
         <tr>
             <td colspan="2">
-                You have {{itemCount}} item{{itemCount == 1? '': 's'}} in your shopping cart.
+                You have {itemCount} item{itemCount == 1? '': 's'} in your shopping cart.
             </td>
         </tr>
-        {{#each items as item, index}}
+        {#each items as item, index}
         <tr>
-            <td><a target='_blank' href="/{{item.name}}">{{item.name}}</a></td>
+            <td><a target='_blank' href="/{item.name}">{item.name}</a></td>
             <td>
                 <button class="button button--small" on:click="removeItem(index)">Delete</button>
             </td>
         </tr>
-        {{/each}}
+        {/each}
     </table>
 </div>
 <script>
     export default {
         computed: {
-            itemCount: items => items.length
+            itemCount: ({ items }) => items.length
         },
         methods: {
             removeItem(index) {
-                const cartItems = this.store.get('items');
-                cartItems.splice(index, 1);
-                this.store.set({'items': cartItems});
+                const { items } = this.store.get();
+                items.splice(index, 1);
+                this.store.set({ items });
             }
         },
         data() {

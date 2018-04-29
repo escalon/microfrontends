@@ -285,9 +285,11 @@ WARNING: By default, Thymeleaf throws an error when a remote template source is 
 
 === Javascript
 
-For local development and testing you need to create npm links to the _cartcomponents_ and _hostingactions_ module after `npm install`.
+For local development and testing you need to create npm links to the _cartcomponents_ and _hostingactions_ module after `npm install`. Since npm v5 this https://github.com/npm/npm/issues/17287[has to be repeated] after `npm install`.
 
 TIP: In a real-life scenario you would keep those modules in a private or public NPM registry. In that case `npm link` is not necessary unless you develop several modules simultaneously.
+
+
 
 The _cart_ app depends on _cartcomponents_, the product app depends on _cartcomponents_ and _hostingactions_.
 
@@ -308,7 +310,7 @@ $ npm link cartcomponents
 $ npm link hostingactions
 ----
 
-When the dependencies are linked, you can build cartcomponents, cart, hostingactions and product or continously watch and build them:
+When the dependencies are linked, you can build cartcomponents, cart, hostingactions and product or continuously watch and build them:
 
 [source, bash]
 ----

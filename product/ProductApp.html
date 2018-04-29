@@ -1,9 +1,9 @@
-{{#each products as product}}
-<ProductPanel :product></ProductPanel>
-{{/each}}
-{{#each promotions as product}}
-<PromotionsPanel :product></PromotionsPanel>
-{{/each}}
+{#each products as product}
+<ProductPanel {product}></ProductPanel>
+{/each}
+{#each promotions as product}
+<PromotionsPanel {product}></PromotionsPanel>
+{/each}
 
 <script>
     import 'core-js/es6/array';

@@ -1,25 +1,25 @@
 <div class="email-action">
-    {{#if status.startsWith('idle')}}
+    {#if status.startsWith('idle')}
     <button class="button button--clear button--large button--launch lineheight_small" on:click="go('editing.accountList')">Manage Email Accounts
     </button>
-    {{elseif status.startsWith('editing')}}
+    {:elseif status.startsWith('editing')}
     <Modal title="Manage Email Accounts" on:modaldone="go('idle')">
-        {{#if status.startsWith('editing.accountList')}}
+        {#if status.startsWith('editing.accountList')}
         <table class="table">
             <col width="40%">
             <col width="35%">
             <col width="25%">
 
-            {{#each accounts as account, index}}
+            {#each accounts as account, index}
             <tr>
-                <td>{{account.userName}}@{{product.domain}}</td>
-                <td>{{account.displayName}}</td>
+                <td>{account.userName}@{product.domain}</td>
+                <td>{account.displayName}</td>
                 <td class="utility__text--right">
                     <button class="button button--small button--launch-update-email" on:click="beginUpdateAccount(index)">Edit</button>
                     <button class="button button--small button--confirm-delete" on:click="confirmDelete(index)">Delete</button>
                 </td>
             </tr>
-            {{/each}}
+            {/each}
             <tr>
                 <td colspan="3" class="utility__text--right">
                     <button class="button button--small button--launch-add-email" on:click="beginAddAccount()">Add</button>
@@ -28,16 +28,16 @@
         </table>
 
         <button class="button button--ok" on:click="go('idle')">Ok</button>
-        {{elseif status.startsWith('editing.add')}}
-        <EmailEditor domain="{{product.domain}}" account="{{currentAccount}}" confirmLabel="Add"
+        {:elseif status.startsWith('editing.add')}
+        <EmailEditor domain="{product.domain}" account="{currentAccount}" confirmLabel="Add"
             on:ok="performAddAccount(event.account)" on:cancel="go('editing.accountList')"></EmailEditor>
-        {{elseif status.startsWith('editing.update')}}
-        <EmailEditor domain="{{product.domain}}" account="{{currentAccount}}"
+        {:elseif status.startsWith('editing.update')}
+        <EmailEditor domain="{product.domain}" account="{currentAccount}"
                      on:ok="performUpdateAccount(event.account)" on:cancel="go('editing.accountList')"></EmailEditor>
-        {{elseif status.startsWith('editing.confirmDelete')}}
+        {:elseif status.startsWith('editing.confirmDelete')}
         <div class="grid">
             <div class="grid__col grid__col--12">
-                Are you sure you want to delete the account {{ accounts[toDelete].userName }}@{{product.domain}}?
+                Are you sure you want to delete the account { accounts[toDelete].userName }@{product.domain}?
             </div>
             <div class="grid__col grid__col--6">
                 <button class="button button--outline" on:click="go('editing.accountList')">Cancel</button>
@@ -46,9 +46,9 @@
                 <button class="button" on:click="performDelete(toDelete)">Delete</button>
             </div>
         </div>
-        {{/if}}
+        {/if}
     </Modal>
-    {{/if}}
+    {/if}
 </div>
 
 <script>
